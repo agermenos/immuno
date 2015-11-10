@@ -79,7 +79,7 @@ public class SearchFragment extends Fragment {
             HttpURLConnection urlConnection;
             try {
                 if (params[0]!=null && !"empty".equals(params[0])) {
-                    URL url = new URL("http://immuno-1125.appspot.com/vaccine");
+                    URL url = new URL("http://immuno-1125.appspot.com/vaccine/" + params[0]);
                     urlConnection = (HttpURLConnection) url.openConnection();
                     int statusCode = urlConnection.getResponseCode();
 

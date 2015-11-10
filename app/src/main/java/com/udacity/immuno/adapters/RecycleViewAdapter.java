@@ -26,7 +26,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<CustomViewHolder> {
 
     @Override
     public CustomViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-       View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.row_vacine_small, null);
+       View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.row_vaccine_search_results, null);
 
         CustomViewHolder viewHolder = new CustomViewHolder(view);
         return viewHolder;
@@ -37,23 +37,37 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<CustomViewHolder> {
         VaccineData vaccineData = vaccineDataList.get(i);
         if (vaccineData.getUserId()!=0) {
             customViewHolder.ibVaccineIcon.setImageResource(R.drawable.ic_vaccine_regular);
+            switch (vaccineData.getStatus()) {
+                case DBHelper.STATUS_COMPLETED:
+                    customViewHolder.ibVaccineAction.setColorFilter(R.drawable.ic_protected_green_24dp);
+                    break;
+                case DBHelper.STATUS_GOOD_FOR_LIFE:
+                    customViewHolder.ibVaccineAction.setImageResource(R.drawable.ic_protected_grey_24dp);
+                    break;
+                case DBHelper.STATUS_SCHEDULED:
+                    customViewHolder.ibVaccineAction.setImageResource(R.drawable.ic_protected_yellow_24dp);
+                    break;
+                case DBHelper.STATUS_TO_BE_SCHEDULED:
+                    customViewHolder.ibVaccineAction.setImageResource(R.drawable.ic_protected_yellow_24dp);
+            }
         }
         else {
             customViewHolder.ibVaccineIcon.setImageResource(R.drawable.ic_vaccine_travel);
+            switch (vaccineData.getStatus()) {
+                case DBHelper.STATUS_COMPLETED:
+                    customViewHolder.ibVaccineAction.setColorFilter(R.drawable.ic_add_circle_outline_24dp);
+                    break;
+                case DBHelper.STATUS_GOOD_FOR_LIFE:
+                    customViewHolder.ibVaccineAction.setImageResource(R.drawable.ic_add_circle_outline_24dp);
+                    break;
+                case DBHelper.STATUS_SCHEDULED:
+                    customViewHolder.ibVaccineAction.setImageResource(R.drawable.ic_add_circle_outline_24dp);
+                    break;
+                case DBHelper.STATUS_TO_BE_SCHEDULED:
+                    customViewHolder.ibVaccineAction.setImageResource(R.drawable.ic_add_circle_outline_24dp);
+            }
         }
-        switch (vaccineData.getStatus()) {
-            case DBHelper.STATUS_COMPLETED:
-                customViewHolder.ibVaccineAction.setColorFilter(R.drawable.ic_protected_green_24dp);
-                break;
-            case DBHelper.STATUS_GOOD_FOR_LIFE:
-                customViewHolder.ibVaccineAction.setImageResource(R.drawable.ic_protected_grey_24dp);
-                break;
-            case DBHelper.STATUS_SCHEDULED:
-                customViewHolder.ibVaccineAction.setImageResource(R.drawable.ic_protected_yellow_24dp);
-                break;
-            case DBHelper.STATUS_TO_BE_SCHEDULED:
-                customViewHolder.ibVaccineAction.setImageResource(R.drawable.ic_protected_red_24dp);
-        }
+
 
         customViewHolder.tvName.setText(vaccineData.getCasualName());
         customViewHolder.tvFormalName.setText(vaccineData.getFormalName());
