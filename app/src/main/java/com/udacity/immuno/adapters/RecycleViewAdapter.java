@@ -25,7 +25,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<CustomViewHolder> {
 
     @Override
     public CustomViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-       View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.vaccine_data_item, null);
+       View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.row_vacine_small, null);
 
         CustomViewHolder viewHolder = new CustomViewHolder(view);
         return viewHolder;
@@ -34,9 +34,9 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<CustomViewHolder> {
     @Override
     public void onBindViewHolder(CustomViewHolder customViewHolder, int i) {
         VaccineData vaccineData = vaccineDataList.get(i);
+
         customViewHolder.tvName.setText(vaccineData.getVaccineName());
-        //Setting text view title
-      //  customViewHolder.textView.setText(Html.fromHtml(vaccineData.getTitle()));
+        //customViewHolder.tvFormalName.setText(vaccineData.);
     }
 
     @Override

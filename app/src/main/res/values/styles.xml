@@ -31,5 +31,10 @@
         <item name="android:textColor">@color/immuno_grey</item>
     </style>
 
+    <style name="HeaderRecyclerViewStyle">
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Body1</item>
+        <item name="android:textColor">@color/immuno_white</item>
+    </style>
+
 
 </resources>
