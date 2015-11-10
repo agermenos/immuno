@@ -5,6 +5,7 @@ import android.content.Context;
 import android.support.multidex.MultiDex;
 
 import com.activeandroid.ActiveAndroid;
+import com.udacity.immuno.database.DBHelper;
 
 /**
  * Created by sengopal on 11/9/15.
@@ -15,6 +16,8 @@ public class ImmunoApplication extends Application {
         super.onCreate();
         MultiDex.install(this);
         ActiveAndroid.initialize(this);
+        //To Initialize
+        DBHelper.getPrimaryUser();
     }
 
     @Override
