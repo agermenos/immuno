@@ -49,6 +49,9 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<CustomViewHolder> {
             case DBHelper.STATUS_TO_BE_SCHEDULED:
                 customViewHolder.ibVaccineAction.setImageResource(R.drawable.ic_protected_red_24dp);
         }
+
+        customViewHolder.tvName.setText(vaccineData.getCasualName());
+        customViewHolder.tvFormalName.setText(vaccineData.getFormalName());
     }
 
     @Override

@@ -13,15 +13,6 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
-
 import com.udacity.immuno.Dummy;
 import com.udacity.immuno.R;
 import com.udacity.immuno.adapters.RecycleViewAdapter;
@@ -142,7 +133,7 @@ public class SearchFragment extends Fragment {
                     item.setStatus(r.nextInt(4));
                     item.setUserId(1);
                     item.setVaccineApiId(vaccine.getString("_ID"));
-                    item.setVaccineName(vaccine.getString("formal_name"));
+                    item.setFormalName(vaccine.getString("formal_name"));
                     vaccineDataList.add(item);
                 }
                 catch (Exception e) {
