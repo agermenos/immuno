@@ -4,8 +4,8 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.test.ProviderTestCase2;
 
+import com.activeandroid.ActiveAndroid;
 import com.activeandroid.content.ContentProvider;
-
 import com.udacity.immuno.database.UserInfo;
 
 /**
@@ -20,7 +20,7 @@ public class ImmunoContentProviderTest extends ProviderTestCase2<ContentProvider
 
     @Override
     protected void setUp() throws Exception {
-        //ActiveAndroid.initialize(this);
+        ActiveAndroid.initialize(getMockContext());
     }
 
     public void testContentProvider() {

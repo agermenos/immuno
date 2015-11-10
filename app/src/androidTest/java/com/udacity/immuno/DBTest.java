@@ -1,7 +1,6 @@
 package com.udacity.immuno;
 
-import android.app.Application;
-import android.test.ApplicationTestCase;
+import android.test.AndroidTestCase;
 
 import com.udacity.immuno.database.DBHelper;
 import com.udacity.immuno.database.UserInfo;
@@ -12,17 +11,13 @@ import java.util.Date;
 /**
  * Created by sengopal on 11/9/15.
  */
-public class DBTest extends ApplicationTestCase<Application> {
-    public DBTest() {
-        super(Application.class);
-    }
+public class DBTest extends AndroidTestCase {
 
-    protected void setUp() throws Exception {
+    public void setUp() throws Exception {
         super.setUp();
-        createApplication();
     }
 
-    protected void tearDown() throws Exception {
+    public void tearDown() throws Exception {
         super.tearDown();
     }
 
