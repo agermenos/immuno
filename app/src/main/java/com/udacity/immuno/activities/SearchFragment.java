@@ -24,7 +24,6 @@ import java.util.List;
 import com.udacity.immuno.Dummy;
 import com.udacity.immuno.R;
 import com.udacity.immuno.adapters.RecycleViewAdapter;
-import com.udacity.immuno.database.DBHelper;
 import com.udacity.immuno.database.VaccineData;
 
 import org.json.JSONArray;

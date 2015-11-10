@@ -11,10 +11,10 @@ import com.udacity.immuno.R;
  */
 public class CustomViewHolder extends RecyclerView.ViewHolder {
 
-    protected TextView textView;
+    protected TextView tvName;
 
     public CustomViewHolder(View view) {
         super(view);
-        this.textView = (TextView) view.findViewById(R.id.name);
+        this.tvName = (TextView) view.findViewById(R.id.name);
     }
 }
