@@ -1,6 +1,5 @@
 package com.udacity.immuno.activities;
 
-import android.app.Activity;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -19,11 +18,13 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.udacity.immuno.Dummy;
 import com.udacity.immuno.R;
 import com.udacity.immuno.adapters.RecycleViewAdapter;
+import com.udacity.immuno.database.DBHelper;
 import com.udacity.immuno.database.VaccineData;
 
 import org.json.JSONArray;
@@ -65,7 +66,7 @@ public class SearchFragment extends Fragment {
         progressBar.setVisibility(View.VISIBLE);
 
         // Downloading data from below url
-        final String url = "";
+        final String url = "empty";
         new AsyncHttpTask().execute(url);
         return rootView;
     }
@@ -82,7 +83,7 @@ public class SearchFragment extends Fragment {
             Integer result = 0;
             HttpURLConnection urlConnection;
             try {
-                if (params[0]!=null && !params[0].isEmpty()) {
+                if (params[0]!=null && !"empty".equals(params[0])) {
                     URL url = new URL(params[0]);
                     urlConnection = (HttpURLConnection) url.openConnection();
                     int statusCode = urlConnection.getResponseCode();
@@ -103,6 +104,7 @@ public class SearchFragment extends Fragment {
                 }
                 else {
                     parseResult(new Dummy().getData());
+                    result=1;
                 }
             } catch (Exception e) {
                 Log.d(TAG, e.getLocalizedMessage());
@@ -127,15 +129,24 @@ public class SearchFragment extends Fragment {
     private void parseResult(String result) {
         try {
             JSONObject response = new JSONObject(result);
-            JSONArray posts = response.optJSONArray("posts");
+            JSONArray vaccines = response.optJSONArray("vaccines");
             vaccineDataList = new ArrayList<>();
 
-            for (int i = 0; i < posts.length(); i++) {
-                JSONObject post = posts.optJSONObject(i);
-                VaccineData item = new VaccineData();
-                // load item
-
-                vaccineDataList.add(item);
+            for (int i = 0; i < vaccines.length() || i<=20; i++) {
+                try {
+                    JSONObject vaccine = vaccines.optJSONObject(i);
+                    VaccineData item = new VaccineData();
+                    // load item
+                    item.setScheduleDate(new Date());
+                    item.setStatus(1);
+                    item.setUserId(1);
+                    item.setVaccineApiId(vaccine.getString("_ID"));
+                    item.setVaccineName(vaccine.getString("formal_name"));
+                    vaccineDataList.add(item);
+                }
+                catch (Exception e) {
+                    Log.e(TAG, e.getMessage());
+                }
             }
         } catch (JSONException e) {
             e.printStackTrace();

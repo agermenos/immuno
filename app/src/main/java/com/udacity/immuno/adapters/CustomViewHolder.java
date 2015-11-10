@@ -15,6 +15,6 @@ public class CustomViewHolder extends RecyclerView.ViewHolder {
 
     public CustomViewHolder(View view) {
         super(view);
-        this.textView = (TextView) view.findViewById(R.id.title);
+        this.textView = (TextView) view.findViewById(R.id.name);
     }
 }

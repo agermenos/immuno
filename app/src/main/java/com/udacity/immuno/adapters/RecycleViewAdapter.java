@@ -34,7 +34,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<CustomViewHolder> {
     @Override
     public void onBindViewHolder(CustomViewHolder customViewHolder, int i) {
         VaccineData vaccineData = vaccineDataList.get(i);
-
+        customViewHolder.textView.setText(vaccineData.getVaccineName());
         //Setting text view title
       //  customViewHolder.textView.setText(Html.fromHtml(vaccineData.getTitle()));
     }
