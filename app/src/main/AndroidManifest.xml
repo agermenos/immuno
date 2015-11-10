@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="udacity.com.immuno">
+    package="com.udacity.immuno">
 
     <application
         android:allowBackup="true"
@@ -18,6 +18,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <provider android:authorities="com.udacity.immuno" android:exported="false" android:name="com.activeandroid.content.ContentProvider" />
+
     </application>
 
 </manifest>

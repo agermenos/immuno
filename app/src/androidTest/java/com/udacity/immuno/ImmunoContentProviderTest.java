@@ -1,4 +1,4 @@
-package com.udacity.immuno;
+package udacity.com.immuno;
 
 import android.database.Cursor;
 import android.net.Uri;

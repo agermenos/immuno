@@ -1,13 +1,13 @@
-package com.udacity.immuno;
+package udacity.com.immuno;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
 
-import java.util.Date;
-
 import com.udacity.immuno.database.DBHelper;
 import com.udacity.immuno.database.UserInfo;
 import com.udacity.immuno.database.VaccineData;
+
+import java.util.Date;
 
 /**
  * Created by sengopal on 11/9/15.
