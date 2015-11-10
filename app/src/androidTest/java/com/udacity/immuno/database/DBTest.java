@@ -1,4 +1,4 @@
-package com.udacity.immuno;
+package com.udacity.immuno.database;
 
 import android.test.AndroidTestCase;
 
