@@ -40,8 +40,6 @@ import java.util.Random;
  */
 public class SearchFragment extends Fragment {
 
-    private static final int TRAVEL = 1;
-    private static final int READY = 2;
     private OnFragmentInteractionListener mListener;
     private List<VaccineData> finalDataList;
 
@@ -64,6 +62,7 @@ public class SearchFragment extends Fragment {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
 
         progressBar = (ProgressBar) rootView.findViewById(R.id.progress_bar);
+        progressBar.setVisibility(View.INVISIBLE);
         return rootView;
     }
 
