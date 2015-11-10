@@ -5,17 +5,11 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.Toast;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -50,7 +44,7 @@ public class SearchFragment extends Fragment {
 
     private static final String TAG = "RecyclerViewExample";
     //private List<VaccineItem> vaccineList;
-    private RecyclerView mRecyclerView;
+   // private RecyclerView mRecyclerView;
     //private MyRecyclerAdapter adapter;
     private ProgressBar progressBar;
 
@@ -60,8 +54,8 @@ public class SearchFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_search, container, false);
 
         // Initialize recycler view
-        mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
+      //  mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
+      //  mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
 
         progressBar = (ProgressBar) rootView.findViewById(R.id.progress_bar);
         progressBar.setVisibility(View.VISIBLE);

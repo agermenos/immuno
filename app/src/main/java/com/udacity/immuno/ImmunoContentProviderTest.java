@@ -1,4 +1,4 @@
-package udacity.com.immuno;
+package com.udacity.immuno;
 
 import android.database.Cursor;
 import android.net.Uri;
@@ -6,7 +6,7 @@ import android.test.ProviderTestCase2;
 
 import com.activeandroid.content.ContentProvider;
 
-import udacity.com.immuno.database.UserInfo;
+import com.udacity.immuno.database.UserInfo;
 
 /**
  * Created by sengopal on 11/9/15.

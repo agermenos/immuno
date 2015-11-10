@@ -1,4 +1,4 @@
-package udacity.com.immuno.database;
+package com.udacity.immuno.database;
 
 import android.os.Parcel;
 import android.os.Parcelable;
