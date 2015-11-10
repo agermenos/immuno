@@ -4,7 +4,7 @@ package com.udacity.immuno;
  * Created by Alejandro on 11/9/15.
  */
 public class Dummy {
-        String dummyString = "{\n" +
+        public static final String dummyString = "{\n" +
                 "    \"vaccines\": [\n" +
                 "        {\n" +
                 "            \"_ID\": \"1\",\n" +

@@ -75,28 +75,28 @@ public class DBHelper {
         user.setUserName("Alejandros");
         user.save();
         Long userId = user.getId();
-        //Vaccines
-        addVaccineForUser("DTaP","2",getDate("10-Nov-2014"),STATUS_COMPLETED,userId);
-        addVaccineForUser("Hepatitis A","3",getDate("10-Nov-2014"),STATUS_COMPLETED,userId);
-        addVaccineForUser("Hepatitis B","4",getDate("10-Nov-2014"),STATUS_COMPLETED,userId);
-        addVaccineForUser("Haemophilus Influenzae type b","5",getDate("10-Nov-2014"),STATUS_COMPLETED,userId);
-        addVaccineForUser("HPV - Cervarix","6",getDate("10-Nov-2014"),STATUS_COMPLETED,userId);
-        addVaccineForUser("HPV - Gardasil-9","7",getDate("10-Nov-2014"),STATUS_COMPLETED,userId);
-        addVaccineForUser("HPV - Gardasil","8",getDate("10-Nov-2014"),STATUS_COMPLETED,userId);
-        addVaccineForUser("Influenza - Live, Intranasal","9",getDate("10-Nov-2014"),STATUS_COMPLETED,userId);
+        //Vaccines Senthi July 7th 1984
+        addVaccineForUser("DTaP","2",getDate("10-Nov-2009"),STATUS_COMPLETED,userId);
+        addVaccineForUser("Hepatitis A","3",getDate("2-Jan-2000"),STATUS_COMPLETED,userId);
+        addVaccineForUser("Hepatitis B","4",getDate("2-Jan-2000"),STATUS_COMPLETED,userId);
+        addVaccineForUser("Haemophilus Influenzae type b","5",getDate("2-Aug-2011"),STATUS_COMPLETED,userId);
+        //addVaccineForUser("HPV - Cervarix","6",getDate("10-Nov-2014"),STATUS_COMPLETED,userId);
+        addVaccineForUser("HPV - Gardasil-9","7",getDate("20-Dec-2012"),STATUS_COMPLETED,userId);
+        //addVaccineForUser("HPV - Gardasil","8",getDate("10-Nov-2014"),STATUS_COMPLETED,userId);
+        //addVaccineForUser("Influenza - Live, Intranasal","9",getDate("10-Nov-2014"),STATUS_COMPLETED,userId);
         addVaccineForUser("Influenza - Inactivated","10",getDate("10-Nov-2014"),STATUS_COMPLETED,userId);
-        addVaccineForUser("MMR","11",getDate("10-Nov-2014"),STATUS_COMPLETED,userId);
-        addVaccineForUser("MMRV","12",getDate("10-Nov-2014"),STATUS_COMPLETED,userId);
-        addVaccineForUser("Meningococcal","13",getDate("10-Nov-2014"),STATUS_COMPLETED,userId);
-        addVaccineForUser("MenB","14",getDate("10-Nov-2014"),STATUS_COMPLETED,userId);
-        addVaccineForUser("PCV13","15",getDate("10-Nov-2014"),STATUS_COMPLETED,userId);
-        addVaccineForUser("PPSV23","16",getDate("10-Nov-2014"),STATUS_COMPLETED,userId);
-        addVaccineForUser("Polio","17",getDate("10-Nov-2014"),STATUS_COMPLETED,userId);
-        addVaccineForUser("Rotavirus","18",getDate("10-Nov-2014"),STATUS_COMPLETED,userId);
-        addVaccineForUser("Herpes Zoster","19",getDate("10-Nov-2014"),STATUS_COMPLETED,userId);
-        addVaccineForUser("Tetanus, Diphtheria, Pertussis","20",getDate("10-Nov-2014"),STATUS_COMPLETED,userId);
-        addVaccineForUser("Tetanus, Diphtheria","21",getDate("10-Nov-2014"),STATUS_COMPLETED,userId);
-        addVaccineForUser("Chickenpox","22",getDate("10-Nov-2014"),STATUS_COMPLETED,userId);
+        //addVaccineForUser("MMR","11",getDate("10-Nov-2014"),STATUS_COMPLETED,userId);
+        addVaccineForUser("MMRV","12",getDate("13-Feb-2008"),STATUS_COMPLETED,userId);
+        //addVaccineForUser("Meningococcal","13",getDate("10-Nov-2013"),STATUS_COMPLETED,userId);
+        addVaccineForUser("MenB","14",getDate("10-Dec-2014"),STATUS_COMPLETED,userId);
+        addVaccineForUser("PCV13","15",getDate("10-Dec-2014"),STATUS_COMPLETED,userId);
+        addVaccineForUser("PPSV23","16",getDate("10-Dec-2014"),STATUS_COMPLETED,userId);
+        addVaccineForUser("Polio","17",getDate("3-Sep-1990"),STATUS_COMPLETED,userId);
+        addVaccineForUser("Rotavirus","18",getDate("7-Jan-1985"),STATUS_COMPLETED,userId);
+        //addVaccineForUser("Herpes Zoster","19",getDate("10-Nov-2014"),STATUS_COMPLETED,userId); //Only for people > 60 years old
+        //addVaccineForUser("Tetanus, Diphtheria, Pertussis","20",getDate("10-Nov-2014"),STATUS_COMPLETED,userId);
+        //addVaccineForUser("Tetanus, Diphtheria","21",getDate("10-Nov-2014"),STATUS_COMPLETED,userId);
+        addVaccineForUser("Chickenpox","22",getDate("10-Nov-2011"),STATUS_COMPLETED,userId);
     }
 
     private static Date getDate(String s) {
