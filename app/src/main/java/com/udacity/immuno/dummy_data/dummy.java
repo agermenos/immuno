@@ -1,6 +1,6 @@
+package com.udacity.immuno.dummy_data;
 
-
-public class Dummy {
+class Dummy {
 
     String dummyString = "{\n" +
             "    \"vaccines\": [\n" +
