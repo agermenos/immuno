@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.udacity.immuno.activities.MainActivity"
+            android:name=".activities.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -19,8 +19,15 @@
             </intent-filter>
         </activity>
 
-        <provider android:authorities="com.udacity.immuno" android:exported="false" android:name="com.activeandroid.content.ContentProvider" />
+        <provider
+            android:name="com.activeandroid.content.ContentProvider"
+            android:authorities="com.udacity.immuno"
+            android:exported="false" />
 
+        <activity
+            android:name=".activities.SearchActivity"
+            android:label="@string/title_activity_search"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
