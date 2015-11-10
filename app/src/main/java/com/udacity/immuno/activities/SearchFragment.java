@@ -1,5 +1,6 @@
 package com.udacity.immuno.activities;
 
+import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -10,10 +11,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.udacity.immuno.Dummy;
 import com.udacity.immuno.R;
 import com.udacity.immuno.adapters.RecycleViewAdapter;
 import com.udacity.immuno.database.DBHelper;
@@ -70,7 +71,13 @@ public class SearchFragment extends Fragment {
 
         @Override
         protected void onPreExecute() {
-           progressBar.setIndeterminate(true);
+            progressBar.setIndeterminate(true);
+            progressBar.setVisibility(View.VISIBLE);
+            View view = getActivity().getCurrentFocus();
+            if (view != null) {
+                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            }
         }
 
         @Override
@@ -78,28 +85,22 @@ public class SearchFragment extends Fragment {
             Integer result = 0;
             HttpURLConnection urlConnection;
             try {
-                if (params[0]!=null && !"empty".equals(params[0])) {
-                    URL url = new URL("http://immuno-1125.appspot.com/vaccine/" + params[0]);
-                    urlConnection = (HttpURLConnection) url.openConnection();
-                    int statusCode = urlConnection.getResponseCode();
+                URL url = new URL("http://immuno-1125.appspot.com/vaccine/" + params[0]);
+                urlConnection = (HttpURLConnection) url.openConnection();
+                int statusCode = urlConnection.getResponseCode();
 
-                    // 200 represents HTTP OK
-                    if (statusCode == 200) {
-                        BufferedReader r = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-                        StringBuilder response = new StringBuilder();
-                        String line;
-                        while ((line = r.readLine()) != null) {
-                            response.append(line);
-                        }
-                        parseResult(response.toString());
-                        result = 1; // Successful
-                    } else {
-                        result = 0; //"Failed to fetch data!";
+                // 200 represents HTTP OK
+                if (statusCode == 200) {
+                    BufferedReader r = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+                    StringBuilder response = new StringBuilder();
+                    String line;
+                    while ((line = r.readLine()) != null) {
+                        response.append(line);
                     }
-                }
-                else {
-                    parseResult(new Dummy().getData());
-                    result=1;
+                    parseResult(response.toString());
+                    result = 1; // Successful
+                } else {
+                    result = 0; //"Failed to fetch data!";
                 }
             } catch (Exception e) {
                 Log.d(TAG, e.getLocalizedMessage());

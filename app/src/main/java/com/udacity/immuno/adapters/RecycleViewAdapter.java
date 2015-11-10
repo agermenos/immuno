@@ -67,8 +67,6 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<CustomViewHolder> {
                     customViewHolder.ibVaccineAction.setImageResource(R.drawable.ic_add_circle_outline_24dp);
             }
         }
-
-
         customViewHolder.tvName.setText(vaccineData.getCasualName());
         customViewHolder.tvFormalName.setText(vaccineData.getFormalName());
     }
