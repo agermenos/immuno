@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Button xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/btn_more"
+    android:layout_width="match_parent"
+    android:layout_height="45dp"
+    android:text="Tap to View More"
+    android:gravity="center"
+    android:textColor="@color/immuno_white"
+    android:textAppearance="@style/TextAppearance.AppCompat.Button"
+    android:background="@color/colorPrimary"
+    android:layout_centerInParent="true"/>

@@ -3,9 +3,10 @@ package com.udacity.immuno.pojos;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import javax.annotation.Generated;
 
 @Generated("org.jsonschema2pojo")
 public class Vaccine implements Parcelable {
@@ -158,7 +159,9 @@ public class Vaccine implements Parcelable {
         this.expireMonths = expireMonths;
     }
 
+    public Vaccine(){
 
+    }
     protected Vaccine(Parcel in) {
         ID = in.readString();
         casualName = in.readString();
