@@ -18,11 +18,17 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
+import com.udacity.immuno.Dummy;
 import com.udacity.immuno.R;
 import com.udacity.immuno.adapters.RecycleViewAdapter;
 import com.udacity.immuno.database.VaccineData;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,7 +65,7 @@ public class SearchFragment extends Fragment {
         progressBar.setVisibility(View.VISIBLE);
 
         // Downloading data from below url
-        final String url = "http://javatechig.com/?json=get_recent_posts&count=45";
+        final String url = "";
         new AsyncHttpTask().execute(url);
         return rootView;
     }
@@ -76,22 +82,27 @@ public class SearchFragment extends Fragment {
             Integer result = 0;
             HttpURLConnection urlConnection;
             try {
-                URL url = new URL(params[0]);
-                urlConnection = (HttpURLConnection) url.openConnection();
-                int statusCode = urlConnection.getResponseCode();
+                if (params[0]!=null && !params[0].isEmpty()) {
+                    URL url = new URL(params[0]);
+                    urlConnection = (HttpURLConnection) url.openConnection();
+                    int statusCode = urlConnection.getResponseCode();
 
-                // 200 represents HTTP OK
-                if (statusCode == 200) {
-                    BufferedReader r = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-                    StringBuilder response = new StringBuilder();
-                    String line;
-                    while ((line = r.readLine()) != null) {
-                        response.append(line);
+                    // 200 represents HTTP OK
+                    if (statusCode == 200) {
+                        BufferedReader r = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+                        StringBuilder response = new StringBuilder();
+                        String line;
+                        while ((line = r.readLine()) != null) {
+                            response.append(line);
+                        }
+                        parseResult(response.toString());
+                        result = 1; // Successful
+                    } else {
+                        result = 0; //"Failed to fetch data!";
                     }
-                    parseResult(response.toString());
-                    result = 1; // Successful
-                } else {
-                    result = 0; //"Failed to fetch data!";
+                }
+                else {
+                    parseResult(new Dummy().getData());
                 }
             } catch (Exception e) {
                 Log.d(TAG, e.getLocalizedMessage());
@@ -114,23 +125,21 @@ public class SearchFragment extends Fragment {
     }
 
     private void parseResult(String result) {
-        /**
         try {
             JSONObject response = new JSONObject(result);
             JSONArray posts = response.optJSONArray("posts");
-            feedsList = new ArrayList<>();
+            vaccineDataList = new ArrayList<>();
 
             for (int i = 0; i < posts.length(); i++) {
                 JSONObject post = posts.optJSONObject(i);
-                FeedItem item = new FeedItem();
-                item.setTitle(post.optString("title"));
-                item.setThumbnail(post.optString("thumbnail"));
+                VaccineData item = new VaccineData();
+                // load item
 
-                feedsList.add(item);
+                vaccineDataList.add(item);
             }
         } catch (JSONException e) {
             e.printStackTrace();
-        } */
+        }
     }
 
     /**
@@ -158,16 +167,7 @@ public class SearchFragment extends Fragment {
         }
     }
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            mListener = (OnFragmentInteractionListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
+
 
     @Override
     public void onDetach() {
