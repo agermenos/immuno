@@ -153,7 +153,7 @@ public class SearchFragment extends Fragment {
                     // load item
                     item.setScheduleDate(new Date());
                     item.setStatus(r.nextInt(4));
-                    item.setUserId(vaccine.get("user_id")!=null?vaccine.getLong("user_id"):0);
+                    item.setUserId(0);
                     item.setVaccineApiId(vaccine.getString("_ID"));
                     item.setFormalName(vaccine.getString("formal_name"));
                     vaccineDataList.add(item);
