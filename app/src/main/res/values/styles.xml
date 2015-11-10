@@ -22,4 +22,14 @@
         <item name="colorControlHighlight">@color/colorPrimary</item>
     </style>
 
+    <style name="VaccineTitleStyle">
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Body2</item>
+    </style>
+
+    <style name="VaccineSubtitleStyle">
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Body1</item>
+        <item name="android:textColor">@color/immuno_grey</item>
+    </style>
+
+
 </resources>
