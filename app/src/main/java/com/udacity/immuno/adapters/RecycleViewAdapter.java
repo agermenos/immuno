@@ -35,7 +35,6 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<CustomViewHolder> {
     @Override
     public void onBindViewHolder(CustomViewHolder customViewHolder, int i) {
         VaccineData vaccineData = vaccineDataList.get(i);
-        customViewHolder.tvName.setText(vaccineData.getVaccineName());
         switch (vaccineData.getStatus()) {
             case DBHelper.STATUS_COMPLETED:
                 customViewHolder.ibVaccineAction.setColorFilter(R.drawable.ic_protected_green_24dp);
