@@ -3,7 +3,7 @@ package com.udacity.immuno.activities;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.udacity.immuno.Dummy;
 import com.udacity.immuno.R;
 import com.udacity.immuno.adapters.RecycleViewAdapter;
+import com.udacity.immuno.database.DBHelper;
 import com.udacity.immuno.database.VaccineData;
 
 import org.json.JSONArray;
@@ -36,13 +37,13 @@ import java.util.Random;
  * Activities that contain this fragment must implement the
  * {@link SearchFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link SearchFragment#newInstance} factory method to
- * create an instance of this fragment.
  */
 public class SearchFragment extends Fragment {
 
+    private static final int TRAVEL = 1;
+    private static final int READY = 2;
     private OnFragmentInteractionListener mListener;
-    private List<VaccineData> vaccineDataList;
+    private List<VaccineData> finalDataList;
 
     public SearchFragment() {
         // Required empty public constructor
@@ -63,11 +64,6 @@ public class SearchFragment extends Fragment {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
 
         progressBar = (ProgressBar) rootView.findViewById(R.id.progress_bar);
-        progressBar.setVisibility(View.VISIBLE);
-
-        // Downloading data from below url
-        final String url = "empty";
-        new AsyncHttpTask().execute(url);
         return rootView;
     }
 
@@ -84,7 +80,7 @@ public class SearchFragment extends Fragment {
             HttpURLConnection urlConnection;
             try {
                 if (params[0]!=null && !"empty".equals(params[0])) {
-                    URL url = new URL(params[0]);
+                    URL url = new URL("http://immuno-1125.appspot.com/vaccine");
                     urlConnection = (HttpURLConnection) url.openConnection();
                     int statusCode = urlConnection.getResponseCode();
 
@@ -118,7 +114,7 @@ public class SearchFragment extends Fragment {
             progressBar.setVisibility(View.GONE);
 
             if (result == 1) {
-                adapter = new RecycleViewAdapter(getContext(), vaccineDataList);
+                adapter = new RecycleViewAdapter(getContext(), finalDataList);
                 mRecyclerView.setAdapter(adapter);
             } else {
                 Toast.makeText(getActivity(), "Failed to fetch data!", Toast.LENGTH_SHORT).show();
@@ -126,11 +122,28 @@ public class SearchFragment extends Fragment {
         }
     }
 
+    public void onSearch(String searchText){
+        finalDataList = new ArrayList<>();
+        VaccineData header = new VaccineData();
+        progressBar.setVisibility(View.VISIBLE);
+        // TODO Add header
+        header.setStatus(1000);
+        header.setCasualName(getString(R.string.most_relevant));
+        finalDataList.addAll(DBHelper.searchVaccinesByName(searchText));
+        // TODO Add header
+        VaccineData header2 = new VaccineData();
+        header2.setStatus(1000);
+        header2.setCasualName(getString(R.string.travel_results));
+        new AsyncHttpTask().execute(searchText);
+       // new AsyncHttpTask().execute();
+    }
+
     private void parseResult(String result) {
+        List<VaccineData> vaccineDataList = new ArrayList<>();
         try {
             JSONObject response = new JSONObject(result);
             JSONArray vaccines = response.optJSONArray("vaccines");
-            vaccineDataList = new ArrayList<>();
+
             Random r = new Random();
 
             for (int i = 0; i < vaccines.length() || i<=20; i++) {
@@ -140,7 +153,7 @@ public class SearchFragment extends Fragment {
                     // load item
                     item.setScheduleDate(new Date());
                     item.setStatus(r.nextInt(4));
-                    item.setUserId(1);
+                    item.setUserId(vaccine.get("user_id")!=null?vaccine.getLong("user_id"):0);
                     item.setVaccineApiId(vaccine.getString("_ID"));
                     item.setFormalName(vaccine.getString("formal_name"));
                     vaccineDataList.add(item);
@@ -152,24 +165,7 @@ public class SearchFragment extends Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment SearchFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static SearchFragment newInstance(String param1, String param2) {
-        SearchFragment fragment = new SearchFragment();
-        Bundle args = new Bundle();
-       // args.putString(ARG_PARAM1, param1);
-       // args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+        finalDataList.addAll(vaccineDataList);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -178,8 +174,6 @@ public class SearchFragment extends Fragment {
             mListener.onFragmentInteraction(uri);
         }
     }
-
-
 
     @Override
     public void onDetach() {
