@@ -1,7 +1,9 @@
 package com.udacity.immuno.activities;
 
 import android.content.Intent;
+import android.graphics.pdf.PdfDocument;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -11,8 +13,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.udacity.immuno.R;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -108,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
                 mDrawerLayout.openDrawer(GravityCompat.START);
                 return true;
             case R.id.action_share:
-                //TODO: Gurmeet: add export as PDF?
+                saveUserVaccineInfoAsPDF();
                 return true;
             case R.id.action_settings:
                 return true;
@@ -116,4 +127,75 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    public void saveUserVaccineInfoAsPDF() {
+        // Create a new object of PdfDocument
+        final PdfDocument document = new PdfDocument();
+
+        //To Do: Dummy content for PDF, replace it with the vaccine information
+        // Need to fix it with real content
+        final View content = findViewById(R.id.dummy_textview);
+
+
+        //PDF Document Page Number
+        int pageNumber = 1;
+
+        //A4 page for PDF document
+        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(
+                4960, 7016, pageNumber).create();
+
+        // Create a new page with the pageInfo
+        PdfDocument.Page pdfPage = document.startPage(pageInfo);
+        content.draw(pdfPage.getCanvas());
+
+        //finish creating the document
+        document.finishPage(pdfPage);
+
+        //Save created document to sd card
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MMddyyhhss");
+        String pdfName = "ImmunoPDF"
+                + dateFormat.format(Calendar.getInstance().getTime()) + ".pdf";
+
+
+        File outputDirectory = new File(Environment.getExternalStorageDirectory() + "/Immuno/");
+
+        boolean bSuccess = true;
+
+        if (!outputDirectory.exists()) {
+            bSuccess = outputDirectory.mkdir();
+        }
+
+        if (bSuccess) {
+            try {
+                File OutputFile = new File(outputDirectory.getPath() + pdfName);
+                OutputFile.createNewFile();
+                OutputStream out = new FileOutputStream(OutputFile);
+                document.writeTo(out);
+                document.close();
+                out.close();
+                String strImmunoPDFCreated = "Exported pdf at " + OutputFile;
+                ImmunoToast(strImmunoPDFCreated);
+            } catch (IOException e) {
+                e.printStackTrace();
+                String strImmunoPDFError = "Could not create" + pdfName + ". Please " +
+                        "check the SD Card permission in settings";
+                ImmunoToast(strImmunoPDFError);
+            }
+
+        } else {
+
+            String strImmunoDirNotExist = "Could not create Immuno directory on SD Card. Please " +
+                    "check the SD Card permission in settings";
+            ImmunoToast(strImmunoDirNotExist);
+        }
+    }
+
+
+    private void ImmunoToast(String strText) {
+        Toast immunoToast = Toast.makeText(this, strText, Toast.LENGTH_LONG);
+        immunoToast.show();
+    }
+
+
+
 }

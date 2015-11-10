@@ -48,4 +48,11 @@
         app:menu="@menu/menu_navigation_items"
         android:theme="@style/NavigationViewTheme"/>
 
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/dummy_textview"
+        android:text="Dummy Text"
+        android:visibility="invisible"/>
+
 </android.support.v4.widget.DrawerLayout>
