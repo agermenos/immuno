@@ -35,8 +35,8 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<CustomViewHolder> {
     public void onBindViewHolder(CustomViewHolder customViewHolder, int i) {
         VaccineData vaccineData = vaccineDataList.get(i);
 
-        customViewHolder.tvName.setText(vaccineData.getVaccineName());
-        //customViewHolder.tvFormalName.setText(vaccineData.);
+        customViewHolder.tvName.setText(vaccineData.getCasualName());
+        customViewHolder.tvFormalName.setText(vaccineData.getFormalName());
     }
 
     @Override

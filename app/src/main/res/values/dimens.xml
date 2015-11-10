@@ -13,4 +13,5 @@
     <dimen name="article_keylines">72dp</dimen>
     <dimen name="md_keylines">16dp</dimen>
     <dimen name="article_titles">20sp</dimen>
+    <dimen name="text_margin">16dp</dimen>
 </resources>

@@ -1,9 +1,9 @@
 package com.udacity.immuno.activities;
 
+import android.app.Fragment;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -13,14 +13,6 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 import com.udacity.immuno.Dummy;
 import com.udacity.immuno.R;
 import com.udacity.immuno.adapters.RecycleViewAdapter;
@@ -29,6 +21,14 @@ import com.udacity.immuno.database.VaccineData;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -140,7 +140,7 @@ public class SearchFragment extends Fragment {
                     item.setStatus(1);
                     item.setUserId(1);
                     item.setVaccineApiId(vaccine.getString("_ID"));
-                    item.setVaccineName(vaccine.getString("formal_name"));
+                    item.setFormalName(vaccine.getString("formal_name"));
                     vaccineDataList.add(item);
                 }
                 catch (Exception e) {
