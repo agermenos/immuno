@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.udacity.immuno.R;
+import com.udacity.immuno.database.DBHelper;
 import com.udacity.immuno.database.VaccineData;
 
 import java.util.List;
@@ -34,9 +35,20 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<CustomViewHolder> {
     @Override
     public void onBindViewHolder(CustomViewHolder customViewHolder, int i) {
         VaccineData vaccineData = vaccineDataList.get(i);
-
         customViewHolder.tvName.setText(vaccineData.getVaccineName());
-        //customViewHolder.tvFormalName.setText(vaccineData.);
+        switch (vaccineData.getStatus()) {
+            case DBHelper.STATUS_COMPLETED:
+                customViewHolder.ibVaccineAction.setColorFilter(R.drawable.ic_protected_green_24dp);
+                break;
+            case DBHelper.STATUS_GOOD_FOR_LIFE:
+                customViewHolder.ibVaccineAction.setImageResource(R.drawable.ic_protected_grey_24dp);
+                break;
+            case DBHelper.STATUS_SCHEDULED:
+                customViewHolder.ibVaccineAction.setImageResource(R.drawable.ic_protected_yellow_24dp);
+                break;
+            case DBHelper.STATUS_TO_BE_SCHEDULED:
+                customViewHolder.ibVaccineAction.setImageResource(R.drawable.ic_protected_red_24dp);
+        }
     }
 
     @Override

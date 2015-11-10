@@ -20,6 +20,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import com.udacity.immuno.Dummy;
 import com.udacity.immuno.R;
@@ -130,6 +131,7 @@ public class SearchFragment extends Fragment {
             JSONObject response = new JSONObject(result);
             JSONArray vaccines = response.optJSONArray("vaccines");
             vaccineDataList = new ArrayList<>();
+            Random r = new Random();
 
             for (int i = 0; i < vaccines.length() || i<=20; i++) {
                 try {
@@ -137,7 +139,7 @@ public class SearchFragment extends Fragment {
                     VaccineData item = new VaccineData();
                     // load item
                     item.setScheduleDate(new Date());
-                    item.setStatus(1);
+                    item.setStatus(r.nextInt(4));
                     item.setUserId(1);
                     item.setVaccineApiId(vaccine.getString("_ID"));
                     item.setVaccineName(vaccine.getString("formal_name"));
