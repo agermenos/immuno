@@ -5,18 +5,24 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 
 import com.udacity.immuno.R;
+import com.udacity.immuno.adapters.RecycleViewAdapter;
+import com.udacity.immuno.database.VaccineData;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,25 +33,17 @@ import com.udacity.immuno.R;
  * create an instance of this fragment.
  */
 public class SearchFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    private List<VaccineData> vaccineDataList;
 
     public SearchFragment() {
         // Required empty public constructor
     }
 
-    private static final String TAG = "RecyclerViewExample";
-    //private List<VaccineItem> vaccineList;
-   // private RecyclerView mRecyclerView;
-    //private MyRecyclerAdapter adapter;
+    private static final String TAG = "SearchFragment";
+    private RecyclerView mRecyclerView;
+    private RecycleViewAdapter adapter;
     private ProgressBar progressBar;
 
     @Override
@@ -54,8 +52,8 @@ public class SearchFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_search, container, false);
 
         // Initialize recycler view
-      //  mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
-      //  mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
+        mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
 
         progressBar = (ProgressBar) rootView.findViewById(R.id.progress_bar);
         progressBar.setVisibility(View.VISIBLE);
@@ -70,7 +68,7 @@ public class SearchFragment extends Fragment {
 
         @Override
         protected void onPreExecute() {
-           // setProgressBarIndeterminateVisibility(true);
+           progressBar.setIndeterminate(true);
         }
 
         @Override
@@ -107,10 +105,10 @@ public class SearchFragment extends Fragment {
             progressBar.setVisibility(View.GONE);
 
             if (result == 1) {
-         //       adapter = new MyRecyclerAdapter(FeedListActivity.this, feedsList);
-         //       mRecyclerView.setAdapter(adapter);
+                adapter = new RecycleViewAdapter(getContext(), vaccineDataList);
+                mRecyclerView.setAdapter(adapter);
             } else {
-         //       Toast.makeText(FeedListActivity.this, "Failed to fetch data!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Failed to fetch data!", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -147,8 +145,8 @@ public class SearchFragment extends Fragment {
     public static SearchFragment newInstance(String param1, String param2) {
         SearchFragment fragment = new SearchFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+       // args.putString(ARG_PARAM1, param1);
+       // args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
