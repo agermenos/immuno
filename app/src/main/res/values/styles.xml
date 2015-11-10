@@ -17,4 +17,19 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="NavigationViewTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="textAppearanceListItem">@style/TextAppearance.AppCompat.Body2</item>
+        <item name="colorControlHighlight">@color/colorPrimary</item>
+    </style>
+
+    <style name="VaccineTitleStyle">
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Body2</item>
+    </style>
+
+    <style name="VaccineSubtitleStyle">
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Body1</item>
+        <item name="android:textColor">@color/immuno_grey</item>
+    </style>
+
+
 </resources>

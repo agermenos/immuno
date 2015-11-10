@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_item_parent1"
+            android:icon="@drawable/ic_person_24dp"
+            android:title="Parent 1"
+            android:state_checked="true"/>
+        <item
+            android:id="@+id/nav_item_parent2"
+            android:icon="@drawable/ic_person_24dp"
+            android:title="Parent 1"/>
+        <item
+            android:id="@+id/nav_item_child1"
+            android:icon="@drawable/ic_person_24dp"
+            android:title="Child 2"/>
+        <item
+            android:id="@+id/nav_item_child2"
+            android:icon="@drawable/ic_person_24dp"
+            android:title="Child 1"/>
+    </group>
+</menu>

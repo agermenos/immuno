@@ -10,4 +10,6 @@
     <color name="immuno_red">#E53935</color>
 
     <color name="immuno_white">#FFFFFF</color>
+    <color name="immuno_grey">#525252</color>
+    <color name="immuno_light_grey">#BBBBBB</color>
 </resources>

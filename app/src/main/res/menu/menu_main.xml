@@ -3,6 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.udacity.immuno.activities.MainActivity">
     <item
+        android:id="@+id/action_share"
+        android:icon="@drawable/ic_share_24dp"
+        android:title="@string/action_share"
+        app:showAsAction="ifRoom" />
+    <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:title="@string/action_settings"
