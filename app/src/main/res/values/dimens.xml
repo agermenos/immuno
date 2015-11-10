@@ -8,6 +8,7 @@
     <dimen name="nav_drawer_header_height">154dp</dimen>
     <dimen name="vaccine_small_row_height">75dp</dimen>
     <dimen name="vaccine_small_row_padding">12dp</dimen>
+    <dimen name="vaccine_small_primary_icon_height">40dp</dimen>
 
     <dimen name="app_bar_height">256dp</dimen>
     <dimen name="article_keylines">72dp</dimen>

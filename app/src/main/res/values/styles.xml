@@ -36,5 +36,16 @@
         <item name="android:textColor">@color/immuno_white</item>
     </style>
 
+    <style name="VaccineIconPastTextView">
+        <item name="android:layout_width">@dimen/vaccine_small_primary_icon_height</item>
+        <item name="android:layout_height">@dimen/vaccine_small_primary_icon_height</item>
+        <item name="android:textColor">@color/immuno_white</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Caption</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:background">@drawable/ic_vaccine_past_icon_background</item>
+    </style>
 
 </resources>
