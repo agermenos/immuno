@@ -30,6 +30,14 @@ public class DBHelper {
         return null;
     }
 
+    public static VaccineData getVaccine(long id){
+        List<VaccineData> list = new Select().from(VaccineData.class).where("_Id = ?", id).execute();
+        if(null!=list && !list.isEmpty()){
+            return list.get(0);
+        }
+        return null;
+    }
+
     public static VaccineData addVaccineForUser(String vaccineName, String vaccineApiId, Date scheduledDate, @VaccineStatus int vaccineStatus, long userId){
         VaccineData vaccineData = new VaccineData();
         vaccineData.setUserId(userId);
