@@ -15,8 +15,11 @@ import java.util.Date;
  */
 @Table(name = "VaccineData", id = BaseColumns._ID)
 public class VaccineData extends Model implements Parcelable {
-    @Column(name = "vaccine_name")
-    private String vaccineName;
+    @Column(name = "formalName")
+    private String formalName;
+
+    @Column(name = "casualName")
+    private String casualName;
 
     @Column(name = "vaccine_api_id", unique = true, onUniqueConflict = Column.ConflictAction.REPLACE)
     private String vaccineApiId;
@@ -35,7 +38,8 @@ public class VaccineData extends Model implements Parcelable {
     }
 
     protected VaccineData(Parcel in) {
-        vaccineName = in.readString();
+        formalName = in.readString();
+        casualName = in.readString();
         vaccineApiId = in.readString();
         userId = in.readLong();
         status = in.readInt();
@@ -50,7 +54,8 @@ public class VaccineData extends Model implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(vaccineName);
+        dest.writeString(formalName);
+        dest.writeString(casualName);
         dest.writeString(vaccineApiId);
         dest.writeLong(userId);
         dest.writeInt(status);
@@ -70,12 +75,20 @@ public class VaccineData extends Model implements Parcelable {
         }
     };
 
-    public String getVaccineName() {
-        return vaccineName;
+    public String getFormalName() {
+        return formalName;
     }
 
-    public void setVaccineName(String vaccineName) {
-        this.vaccineName = vaccineName;
+    public void setFormalName(String formalName) {
+        this.formalName = formalName;
+    }
+
+    public String getCasualName() {
+        return casualName;
+    }
+
+    public void setCasualName(String casualName) {
+        this.casualName = casualName;
     }
 
     public String getVaccineApiId() {

@@ -15,7 +15,16 @@ import java.util.List;
  * Created by sengopal on 11/9/15.
  */
 public class DBHelper {
+    private static long DEFAULT_USER_ID = -1;
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MMM-yyyy");
+
+    public static long getPrimaryUserId() {
+        if(DEFAULT_USER_ID < 0){
+            DEFAULT_USER_ID = getPrimaryUser().getId();
+        }
+        return DEFAULT_USER_ID;
+    }
+
     @IntDef({STATUS_GOOD_FOR_LIFE, STATUS_COMPLETED, STATUS_SCHEDULED, STATUS_TO_BE_SCHEDULED})
     @Retention(RetentionPolicy.SOURCE)
     public @interface VaccineStatus {}
@@ -41,13 +50,14 @@ public class DBHelper {
         return null;
     }
 
-    public static VaccineData addVaccineForUser(String vaccineName, String vaccineApiId, Date scheduledDate, @VaccineStatus int vaccineStatus, long userId){
+    public static VaccineData addVaccineForUser(String casualName, String formalName, String vaccineApiId, Date scheduledDate, @VaccineStatus int vaccineStatus, long userId){
         VaccineData vaccineData = new VaccineData();
         vaccineData.setUserId(userId);
         vaccineData.setScheduleDate(scheduledDate);
         vaccineData.setStatus(vaccineStatus);
         vaccineData.setVaccineApiId(vaccineApiId);
-        vaccineData.setVaccineName(vaccineName);
+        vaccineData.setCasualName(casualName);
+        vaccineData.setFormalName(formalName);
         vaccineData.save();
         return vaccineData;
     }
