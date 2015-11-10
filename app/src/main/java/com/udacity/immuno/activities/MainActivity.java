@@ -32,8 +32,10 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity {
     public static final String TAG = MainActivity.class.getSimpleName();
 
-    @Bind(R.id.navigation_view) NavigationView mNavigationView;
-    @Bind(R.id.drawer_layout) DrawerLayout mDrawerLayout;
+    @Bind(R.id.navigation_view)
+    NavigationView mNavigationView;
+    @Bind(R.id.drawer_layout)
+    DrawerLayout mDrawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void setUpToolbar(){
+    private void setUpToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -67,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_24dp);
     }
 
-    private void setUpNavigation(){
+    private void setUpNavigation() {
 
         //TODO: set up account information from db
 
@@ -114,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        switch(id){
+        switch (id) {
             case android.R.id.home:
                 mDrawerLayout.openDrawer(GravityCompat.START);
                 return true;
@@ -124,7 +126,6 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_settings:
                 return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -135,7 +136,6 @@ public class MainActivity extends AppCompatActivity {
         //To Do: Dummy content for PDF, replace it with the vaccine information
         // Need to fix it with real content
         final View content = findViewById(R.id.dummy_textview);
-
 
         //PDF Document Page Number
         int pageNumber = 1;
@@ -156,46 +156,28 @@ public class MainActivity extends AppCompatActivity {
         String pdfName = "ImmunoPDF"
                 + dateFormat.format(Calendar.getInstance().getTime()) + ".pdf";
 
+        File outputDirectory = new File(Environment.getExternalStorageDirectory().getPath());
 
-        File outputDirectory = new File(Environment.getExternalStorageDirectory() + "/Immuno/");
-
-        boolean bSuccess = true;
-
-        if (!outputDirectory.exists()) {
-            bSuccess = outputDirectory.mkdir();
-        }
-
-        if (bSuccess) {
-            try {
-                File OutputFile = new File(outputDirectory.getPath() + pdfName);
-                OutputFile.createNewFile();
-                OutputStream out = new FileOutputStream(OutputFile);
-                document.writeTo(out);
-                document.close();
-                out.close();
-                String strImmunoPDFCreated = "Exported pdf at " + OutputFile;
-                ImmunoToast(strImmunoPDFCreated);
-            } catch (IOException e) {
-                e.printStackTrace();
-                String strImmunoPDFError = "Could not create" + pdfName + ". Please " +
-                        "check the SD Card permission in settings";
-                ImmunoToast(strImmunoPDFError);
-            }
-
-        } else {
-
-            String strImmunoDirNotExist = "Could not create Immuno directory on SD Card. Please " +
+        try {
+            File OutputFile = new File(outputDirectory + "/" + pdfName);
+            OutputFile.createNewFile();
+            OutputStream out = new FileOutputStream(OutputFile);
+            document.writeTo(out);
+            document.close();
+            out.close();
+            String strImmunoPDFCreated = "Exported pdf at " + OutputFile;
+            ImmunoToast(strImmunoPDFCreated);
+        } catch (IOException e) {
+            e.printStackTrace();
+            String strImmunoPDFError = "Could not create" + pdfName + ". Please " +
                     "check the SD Card permission in settings";
-            ImmunoToast(strImmunoDirNotExist);
+            ImmunoToast(strImmunoPDFError);
         }
-    }
 
+}
 
     private void ImmunoToast(String strText) {
         Toast immunoToast = Toast.makeText(this, strText, Toast.LENGTH_LONG);
         immunoToast.show();
     }
-
-
-
 }
