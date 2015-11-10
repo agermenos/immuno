@@ -1,26 +1,20 @@
-package com.udacity.immuno;
+package com.udacity.immuno.database;
 
 import android.database.Cursor;
 import android.net.Uri;
-import android.test.ProviderTestCase2;
+import android.test.AndroidTestCase;
 
+import com.activeandroid.ActiveAndroid;
 import com.activeandroid.content.ContentProvider;
-
-import com.udacity.immuno.database.UserInfo;
 
 /**
  * Created by sengopal on 11/9/15.
  */
-public class ImmunoContentProviderTest extends ProviderTestCase2<ContentProvider> {
-
-
-    public ImmunoContentProviderTest() {
-        super(ContentProvider.class, ContentProvider.class.getName());
-    }
+public class ImmunoContentProviderTest extends AndroidTestCase {
 
     @Override
     protected void setUp() throws Exception {
-        //ActiveAndroid.initialize(this);
+        ActiveAndroid.initialize(getContext());
     }
 
     public void testContentProvider() {
@@ -33,9 +27,19 @@ public class ImmunoContentProviderTest extends ProviderTestCase2<ContentProvider
         user.save();
         assertTrue(user.getId() > 0);
 
-        ContentProvider provider = getProvider();
+        /*ContentProvider provider = getProvider();
         Uri uri = ContentProvider.createUri(UserInfo.class, user.getId());
         Cursor cursor = provider.query(uri, null, null, null, null);
+        assertNotNull(cursor);*/
+        Uri uri = ContentProvider.createUri(UserInfo.class, user.getId());
+        Cursor cursor = mContext.getContentResolver().query(uri, null, null, null, null);
         assertNotNull(cursor);
+        if (cursor.moveToFirst()) {
+            do {
+                String data = cursor.getString(cursor.getColumnIndex("user_name"));
+                System.out.println(data);
+            }while(cursor.moveToNext());
+        }
+        cursor.close();
     }
 }

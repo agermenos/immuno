@@ -13,13 +13,14 @@ import java.util.List;
  * Created by sengopal on 11/9/15.
  */
 public class DBHelper {
-    @IntDef({STATUS_GOOD_FOR_LIFE, STATUS_COMPLETED, STATUS_SCHEDULED})
+    @IntDef({STATUS_GOOD_FOR_LIFE, STATUS_COMPLETED, STATUS_SCHEDULED, STATUS_TO_BE_SCHEDULED})
     @Retention(RetentionPolicy.SOURCE)
     public @interface VaccineStatus {}
 
     public static final int STATUS_GOOD_FOR_LIFE = 1;
     public static final int STATUS_COMPLETED = 2;
     public static final int STATUS_SCHEDULED = 3;
+    public static final int STATUS_TO_BE_SCHEDULED = 4;
 
     public static UserInfo getUser(long id){
         List<UserInfo> list = new Select().from(UserInfo.class).where("_Id = ?", id).execute();
@@ -38,5 +39,10 @@ public class DBHelper {
         vaccineData.setVaccineName(vaccineName);
         vaccineData.save();
         return vaccineData;
+    }
+
+    public static List<VaccineData> searchVaccinesByName(String vaccineName){
+        List<VaccineData> vaccineDataList = new Select().from(VaccineData.class).where("vaccine_name LIKE ?", new String[]{"%" + vaccineName + "%"}).execute();
+        return vaccineDataList;
     }
 }
