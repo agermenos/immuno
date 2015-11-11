@@ -12,6 +12,7 @@ import android.widget.ToggleButton;
 import com.udacity.immuno.R;
 import com.udacity.immuno.database.VaccineData;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -41,9 +42,8 @@ public class MainActivityAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     public void setViews(){
 
+        views = new ArrayList<>();
         views.add(TYPE_HEADER_NEEDS_ATTENTION);
-
-
 
         //TODO: check if there are need attention items
             //if yes: views.add(TYPE_HEADER_NEEDS_ATTENTION);

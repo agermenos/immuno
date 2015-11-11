@@ -107,6 +107,28 @@ public class SearchFragment extends Fragment {
             } catch (Exception e) {
                 Log.d(TAG, e.getLocalizedMessage());
             }
+
+            try {
+                URL url = new URL("http://immuno-1125.appspot.com/country/" + params[0]);
+                urlConnection = (HttpURLConnection) url.openConnection();
+                int statusCode = urlConnection.getResponseCode();
+
+                // 200 represents HTTP OK
+                if (statusCode == 200) {
+                    BufferedReader r = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+                    StringBuilder response = new StringBuilder();
+                    String line;
+                    while ((line = r.readLine()) != null) {
+                        response.append(line);
+                    }
+                    parseCountryResult(response.toString());
+                    result = 1; // Successful
+                } else {
+                    result = 0; //"Failed to fetch data!";
+                }
+            } catch (Exception e) {
+                Log.d(TAG, e.getLocalizedMessage());
+            }
             return result; //"Failed to fetch data!";
         }
 
@@ -135,18 +157,9 @@ public class SearchFragment extends Fragment {
 
     public void onSearch(String searchText){
         finalDataList = new ArrayList<>();
-        VaccineData header = new VaccineData();
         progressBar.setVisibility(View.VISIBLE);
         // TODO Add header
-        header.setStatus(1000);
-        header.setCasualName(getString(R.string.most_relevant));
-        finalDataList.addAll(DBHelper.searchVaccinesByName(searchText));
-        // TODO Add header
-        VaccineData header2 = new VaccineData();
-        header2.setStatus(1000);
-        header2.setCasualName(getString(R.string.travel_results));
         new AsyncHttpTask().execute(searchText);
-       // new AsyncHttpTask().execute();
     }
 
     private void parseResult(String result) {
@@ -177,6 +190,34 @@ public class SearchFragment extends Fragment {
             e.printStackTrace();
         }
         finalDataList.addAll(vaccineDataList);
+    }
+
+    private void parseCountryResult(String result) {
+        List<VaccineData> countryDataList = new ArrayList<>();
+        try {
+            JSONObject response = new JSONObject(result);
+            JSONArray countries = response.optJSONArray("countries");
+
+            for (int i = 0; i < countries.length() || i<=20; i++) {
+                try {
+                    JSONObject country = countries.optJSONObject(i);
+                    VaccineData item = new VaccineData();
+                    // load item
+                    item.setScheduleDate(new Date());
+                    item.setUserId(2000);
+                    item.setVaccineApiId(country.getString("country_name"));
+                    item.setCasualName(country.getString("country_name"));
+                    item.setFormalName(country.optJSONArray("Some travelers").length() + " " + getString(R.string.required_vaccines));
+                    countryDataList.add(item);
+                }
+                catch (Exception e) {
+                    Log.e(TAG, e.getMessage());
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        finalDataList.addAll(countryDataList);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

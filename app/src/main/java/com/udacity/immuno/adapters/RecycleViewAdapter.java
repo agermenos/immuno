@@ -44,7 +44,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<CustomViewHolder> {
     @Override
     public void onBindViewHolder(CustomViewHolder customViewHolder, int i) {
         VaccineData vaccineData = vaccineDataList.get(i);
-        if (vaccineData.getUserId()!=0) {
+        if (vaccineData.getUserId()<2000) {
             customViewHolder.ibVaccineIcon.setImageResource(R.drawable.ic_vaccine_regular);
             switch (vaccineData.getStatus()) {
                 case DBHelper.STATUS_COMPLETED:
@@ -62,21 +62,11 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<CustomViewHolder> {
         }
         else {
             customViewHolder.ibVaccineIcon.setImageResource(R.drawable.ic_vaccine_travel);
-            switch (vaccineData.getStatus()) {
-                case DBHelper.STATUS_COMPLETED:
-                    customViewHolder.ibVaccineAction.setColorFilter(R.drawable.ic_add_circle_outline_24dp);
-                    break;
-                case DBHelper.STATUS_GOOD_FOR_LIFE:
-                    customViewHolder.ibVaccineAction.setImageResource(R.drawable.ic_add_circle_outline_24dp);
-                    break;
-                case DBHelper.STATUS_SCHEDULED:
-                    customViewHolder.ibVaccineAction.setImageResource(R.drawable.ic_add_circle_outline_24dp);
-                    break;
-                case DBHelper.STATUS_TO_BE_SCHEDULED:
-                    customViewHolder.ibVaccineAction.setImageResource(R.drawable.ic_add_circle_outline_24dp);
-            }
+            customViewHolder.ibVaccineAction.setVisibility(View.INVISIBLE);
         }
-        customViewHolder.tvName.setText(vaccineData.getCasualName());
+        customViewHolder.tvName.setText(vaccineData.getCasualName()!=null?
+                vaccineData.getCasualName():
+                vaccineData.getFormalName());
         customViewHolder.tvFormalName.setText(vaccineData.getFormalName());
     }
 
