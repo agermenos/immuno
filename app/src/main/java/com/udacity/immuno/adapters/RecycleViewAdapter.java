@@ -18,17 +18,26 @@ import java.util.List;
 public class RecycleViewAdapter extends RecyclerView.Adapter<CustomViewHolder> {
     private List<VaccineData> vaccineDataList;
     private Context mContext;
+    private CustomViewHolder.CustomViewItemClickListener customItemClickListener;
 
-    public RecycleViewAdapter(Context context, List<VaccineData> vaccineDataList) {
+    public RecycleViewAdapter(Context context, List<VaccineData> vaccineDataList, CustomViewHolder.CustomViewItemClickListener customItemClickListener) {
         this.vaccineDataList = vaccineDataList;
         this.mContext = context;
+        this.customItemClickListener = customItemClickListener;
     }
 
     @Override
     public CustomViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.row_vaccine_search_results, null);
 
-        CustomViewHolder viewHolder = new CustomViewHolder(view);
+        final CustomViewHolder viewHolder = new CustomViewHolder(view);
+
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                customItemClickListener.onItemClicked(vaccineDataList.get(viewHolder.getLayoutPosition()));
+            }
+        });
         return viewHolder;
     }
 

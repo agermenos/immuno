@@ -1,6 +1,7 @@
 package com.udacity.immuno.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.udacity.immuno.R;
+import com.udacity.immuno.adapters.CustomViewHolder;
 import com.udacity.immuno.adapters.RecycleViewAdapter;
 import com.udacity.immuno.database.DBHelper;
 import com.udacity.immuno.database.VaccineData;
@@ -67,7 +69,7 @@ public class SearchFragment extends Fragment {
         return rootView;
     }
 
-    public class AsyncHttpTask extends AsyncTask<String, Void, Integer> {
+    public class AsyncHttpTask extends AsyncTask<String, Void, Integer> implements CustomViewHolder.CustomViewItemClickListener{
 
         @Override
         protected void onPreExecute() {
@@ -114,11 +116,20 @@ public class SearchFragment extends Fragment {
             progressBar.setVisibility(View.GONE);
 
             if (result == 1) {
-                adapter = new RecycleViewAdapter(getContext(), finalDataList);
+                adapter = new RecycleViewAdapter(getContext(), finalDataList, this);
                 mRecyclerView.setAdapter(adapter);
             } else {
                 Toast.makeText(getActivity(), "Failed to fetch data!", Toast.LENGTH_SHORT).show();
             }
+        }
+
+        @Override
+        public void onItemClicked(VaccineData vaccineData) {
+            //on selection of Item
+            Intent intent = new Intent(getActivity(), VaccineInfoActivity.class);
+            intent.putExtra("vaccineInfo", vaccineData);
+            intent.putExtra("userId", DBHelper.getPrimaryUserId());
+            startActivity(intent);
         }
     }
 

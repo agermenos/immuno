@@ -68,12 +68,12 @@ public class DBHelper {
     }
 
     public static List<VaccineData> searchVaccinesByName(String vaccineName){
-        List<VaccineData> vaccineDataList = new Select().from(VaccineData.class).where("vaccine_name LIKE ?", new String[]{"%" + vaccineName + "%"}).execute();
+        List<VaccineData> vaccineDataList = new Select().from(VaccineData.class).where("casual_name LIKE ? OR formal_name LIKE ?", new String[]{"%" + vaccineName + "%", "%" + vaccineName + "%"}).execute();
         return vaccineDataList;
     }
 
     public static UserInfo getPrimaryUser(){
-        List<UserInfo> list = new Select().from(UserInfo.class).where("is_primary = ?", Boolean.TRUE).execute();
+        List<UserInfo> list = new Select().from(UserInfo.class).execute();
         if(null!=list && !list.isEmpty()) {
             return list.get(0);
         }

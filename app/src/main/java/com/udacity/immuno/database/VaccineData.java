@@ -15,10 +15,10 @@ import java.util.Date;
  */
 @Table(name = "VaccineData", id = BaseColumns._ID)
 public class VaccineData extends Model implements Parcelable {
-    @Column(name = "formalName")
+    @Column(name = "formal_name")
     private String formalName;
 
-    @Column(name = "casualName")
+    @Column(name = "casual_name")
     private String casualName;
 
     @Column(name = "vaccine_api_id", unique = true, onUniqueConflict = Column.ConflictAction.REPLACE)
