@@ -52,7 +52,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/dummy_textview"
-        android:text="Alejandros Germenos\nDTaP (Nov 10, 2009)\nHepatitis A (Jan 02 2000)\nMenB (Dec 10, 2015)\nHaemophilus influenzae type b (Aug 02, 2011)"
+        android:text="Alejandros Germenos\nDTaP (Nov 10, 2009)\nHepatitis A (Jan 02 2000)\nMenB (Dec 10, 2015)\nHaemophilus influenzae type b (Aug 02, 2011) "
         android:visibility="invisible"/>
 
 </android.support.v4.widget.DrawerLayout>
