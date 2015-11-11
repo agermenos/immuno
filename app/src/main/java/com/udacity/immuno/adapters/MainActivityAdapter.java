@@ -41,6 +41,10 @@ public class MainActivityAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     public void setViews(){
 
+        views.add(TYPE_HEADER_NEEDS_ATTENTION);
+
+
+
         //TODO: check if there are need attention items
             //if yes: views.add(TYPE_HEADER_NEEDS_ATTENTION);
         //TODO: for every vaccine that needs attention:
