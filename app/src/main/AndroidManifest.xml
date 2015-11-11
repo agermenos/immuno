@@ -28,7 +28,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activities.VaccineInfoActivity"/>
+        <activity android:name=".activities.VaccineInfoActivity"
+            android:parentActivityName=".activities.SearchActivity"/>
 
         <provider
             android:name="com.activeandroid.content.ContentProvider"
