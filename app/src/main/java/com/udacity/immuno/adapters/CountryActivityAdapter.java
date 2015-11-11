@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.ToggleButton;
 
 import com.udacity.immuno.R;
 import com.udacity.immuno.database.VaccineData;
@@ -70,8 +69,7 @@ public class CountryActivityAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     public static class VaccineViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.vaccine_icon) ImageView vaccineIcon;
         @Bind(R.id.vaccine_name) TextView vaccineName;
-        @Bind(R.id.vaccine_formal_name) TextView vaccineFormalName;
-        @Bind(R.id.vaccine_action)ToggleButton vaccineAction;
+        @Bind(R.id.vaccine_country_description) TextView vaccineCountryDescription;
 
         public VaccineViewHolder(View v) {
             super(v);
