@@ -35,12 +35,14 @@ public class VaccineInfoActivity extends AppCompatActivity implements View.OnCli
     private VaccineData mVaccineData;
     private long mUserId;
 
-    @Bind(R.id.status_tag) ImageView statusTag;
-    @Bind(R.id.appbar) AppBarLayout appBarLayout;
+    @Bind(R.id.status_tag)
+    ImageView statusTag;
+    @Bind(R.id.appbar)
+    AppBarLayout appBarLayout;
 
-    private static final float PERCENTAGE_TO_HIDE_ICON  = 0.8f;
-    private static final float PERCENTAGE_TO_SHOW_ICON     = 0.2f;
-    private static final int ALPHA_ANIMATIONS_DURATION              = 250;
+    private static final float PERCENTAGE_TO_HIDE_ICON = 0.8f;
+    private static final float PERCENTAGE_TO_SHOW_ICON = 0.2f;
+    private static final int ALPHA_ANIMATIONS_DURATION = 250;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,9 +55,7 @@ public class VaccineInfoActivity extends AppCompatActivity implements View.OnCli
         mUserId = getIntent().getLongExtra("userId", DBHelper.getPrimaryUserId());
 
         setUpToolbar();
-
         setStatusTag();
-        if (strCasualName == null) {
         TextView vaccineDesc = (TextView) findViewById(R.id.vaccine_description);
         ImageView headerImage = (ImageView) findViewById(R.id.header_image);
         vaccineDesc.setText(mVaccineData.getDescription());
@@ -87,26 +87,27 @@ public class VaccineInfoActivity extends AppCompatActivity implements View.OnCli
         fabBtn3.setOnClickListener(this);
         FloatingActionButton fabBtn4 = (FloatingActionButton) findViewById(R.id.btn_save_to_local);
         fabBtn4.setOnClickListener(this);
+
     }
 
-    public void setUpToolbar(){
+    public void setUpToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         String strCasualName = mVaccineData.getCasualName();
-        if(strCasualName == null){
+        if (strCasualName == null) {
             strCasualName = mVaccineData.getFormalName();
         }
         collapsingToolbar.setTitle(strCasualName);
     }
 
-    public void setStatusTag(){
+    public void setStatusTag() {
 
         int status = mVaccineData.getStatus();
 
-        switch (status){
+        switch (status) {
 
             case DBHelper.STATUS_COMPLETED:
                 statusTag.setImageDrawable(getResources().getDrawable(R.drawable.status_tag_received));
@@ -163,7 +164,7 @@ public class VaccineInfoActivity extends AppCompatActivity implements View.OnCli
         }
     }
 
-    public static void startAlphaAnimation (View v, long duration, int visibility) {
+    public static void startAlphaAnimation(View v, long duration, int visibility) {
         AlphaAnimation alphaAnimation = (visibility == View.VISIBLE)
                 ? new AlphaAnimation(0f, 1f)
                 : new AlphaAnimation(1f, 0f);
