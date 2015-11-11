@@ -1,21 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.udacity.immuno">
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name="com.udacity.immuno.ImmunoApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:name="com.udacity.immuno.ImmunoApplication">
+        android:theme="@style/AppTheme">
 
-        <meta-data android:name="AA_DB_NAME" android:value="Immuno.db" />
-        <meta-data android:name="AA_DB_VERSION" android:value="1" />
+        <meta-data
+            android:name="AA_DB_NAME"
+            android:value="Immuno.db" />
+        <meta-data
+            android:name="AA_DB_VERSION"
+            android:value="1" />
 
         <activity
             android:name=".activities.MainActivity"
@@ -28,9 +33,13 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activities.VaccineInfoActivity"
-            android:parentActivityName=".activities.SearchActivity"/>
-
+        <activity
+            android:name=".activities.VaccineInfoActivity"
+            android:parentActivityName=".activities.SearchActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.SearchActivity" />
+        </activity>
         <provider
             android:name="com.activeandroid.content.ContentProvider"
             android:authorities="com.udacity.immuno"
@@ -38,8 +47,7 @@
 
         <activity
             android:name=".activities.SearchActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
