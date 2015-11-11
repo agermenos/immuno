@@ -30,7 +30,7 @@ public class CountryActivityAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     private static final int TYPE_VACCINE = 2;
     private static final int TYPE_LINK = 3;
 
-    public CountryActivityAdapter(Context context, List<VaccineData> vaccineDataList) {
+    public CountryActivityAdapter(Context context, List<String> vaccineSimpleDataList) {
         this.vaccineDataList = vaccineDataList;
         this.mContext = context;
 

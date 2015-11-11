@@ -33,7 +33,7 @@ public class CustomViewHolder extends RecyclerView.ViewHolder implements View.On
         itemClickListener.onItemClicked(vaccineData);
     }
 
-    public static interface CustomViewItemClickListener {
-        public void onItemClicked(VaccineData vaccineData);
+    public interface CustomViewItemClickListener {
+        void onItemClicked(VaccineData vaccineData);
     }
 }
