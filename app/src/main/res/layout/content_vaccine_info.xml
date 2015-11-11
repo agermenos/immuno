@@ -26,14 +26,15 @@
                 android:layout_height="wrap_content"
                 android:text="@string/detail_desc_lorem"
                 android:textSize="14sp"
+                android:lineSpacingMultiplier="1.25"
                 android:layout_gravity="center"
                 android:gravity="left"
                 android:layout_marginBottom="@dimen/md_keylines"
-                android:paddingLeft="30sp"
+                android:paddingLeft="16sp"
                 android:paddingRight="@dimen/md_keylines"
-                android:paddingTop="@dimen/md_keylines"
-                android:paddingBottom="@dimen/md_keylines"
-                android:background="@color/immuno_light_grey"
+                android:paddingTop="24dp"
+                android:paddingBottom="24dp"
+                android:background="@color/immuno_medium_grey"
                 android:textColor="@color/immuno_white" />
         </RelativeLayout>
 
@@ -69,60 +70,7 @@
 
         <include layout="@layout/divider_horizonal_full"/>
 
-        <RelativeLayout android:id="@+id/user_details_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/textview_details"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Your Details"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="30dp"
-            android:textSize="@dimen/article_titles"
-            android:textColor="@color/immuno_grey"/>
-
-            <TextView
-                android:id="@+id/last_dose_date"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="September 10, 2014"
-                android:layout_marginLeft="30dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:layout_marginTop="20dp"
-                android:layout_below="@+id/textview_details"/>
-
-            <TextView
-                android:id="@+id/last_dose_label"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Last Dose"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="30dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                android:layout_below="@id/last_dose_date"
-                />
-
-            <TextView
-                android:id="@+id/next_dose_date"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="March 12, 2016"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="30dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:layout_below="@id/last_dose_label"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Next Dose"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="30dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                android:layout_below="@+id/next_dose_date"/>
-        </RelativeLayout>
+        <include layout="@layout/vaccine_info_your_details"/>
 
         <include layout="@layout/divider_horizonal_full"/>
 

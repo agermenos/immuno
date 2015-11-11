@@ -1,6 +1,6 @@
 
 <resources>
-    <string name="app_name">IMMUNO</string>
+    <string name="app_name">Immuno</string>
     <string name="action_settings">Settings</string>
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -22,5 +22,5 @@
     <string name="title_activity_country">Country Name</string>
     <string name="country_warning">**Most vaccines for travel need to be taken some weeks prior to travel. Please consult your doctor in advance.**</string>
     <string name="add_to_my_list">Add to my list</string>
-    <string name="search_vaccines_countries">Search Vaccines or Countries</string>
+    <string name="search_vaccines_countries">Search vaccines or countries</string>
 </resources>

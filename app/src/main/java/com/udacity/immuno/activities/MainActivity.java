@@ -177,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         File outputDirectory = new File(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_DOCUMENTS).getPath() + "/Immuno");
+                Environment.DIRECTORY_DOWNLOADS).getPath() + "/Immuno");
 
         if(!outputDirectory.exists()){
             outputDirectory.mkdir();

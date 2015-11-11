@@ -25,13 +25,17 @@ import com.udacity.immuno.Utility;
 import com.udacity.immuno.database.DBHelper;
 import com.udacity.immuno.database.VaccineData;
 
+<<<<<<< HEAD
 import java.util.Date;
 
+public class VaccineInfoActivity extends AppCompatActivity implements View.OnClickListener {
+    private static final String LOG_TAG = VaccineInfoActivity.class.getSimpleName();
+=======
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class VaccineInfoActivity extends AppCompatActivity implements View.OnClickListener, AppBarLayout.OnOffsetChangedListener {
-    private static final String LOG_TAG = VaccineInfoActivity.class.getSimpleName();
+>>>>>>> d206612db30dc2de1e1706f2a1c4939bd23c0495
     private VaccineData mVaccineData;
     private long mUserId;
 
@@ -52,19 +56,37 @@ public class VaccineInfoActivity extends AppCompatActivity implements View.OnCli
         mVaccineData = getIntent().getParcelableExtra("vaccineInfo");
         mUserId = getIntent().getLongExtra("userId", DBHelper.getPrimaryUserId());
 
+<<<<<<< HEAD
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        String strCasualName = mVaccineData.getCasualName();
+        if (strCasualName == null) {
+            strCasualName = mVaccineData.getFormalName();
+        }
+        collapsingToolbar.setTitle(strCasualName);
+=======
         setUpToolbar();
 
         setStatusTag();
-        if (strCasualName == null) {
+
+>>>>>>> d206612db30dc2de1e1706f2a1c4939bd23c0495
         TextView vaccineDesc = (TextView) findViewById(R.id.vaccine_description);
         ImageView headerImage = (ImageView) findViewById(R.id.header_image);
         vaccineDesc.setText(mVaccineData.getDescription());
         Picasso.with(this).load(Utility.randMicrobe()).into(headerImage);
         vaccineDesc.setText(mVaccineData.getDescription());
+<<<<<<< HEAD
         if (mVaccineData.getUserId() != 2000) {
-            Picasso.with(this).load(Utility.randMicrobe()).into(headerImage);
+            Picasso.with(this).load(Utility.randMicrobe()).transform(new CircleTransform()).into(picture);
         } else {
+            Picasso.with(this).load(mVaccineData.getLink()).transform(new CircleTransform()).into(picture);
+=======
+        if (mVaccineData.getUserId()!=2000) {
+            Picasso.with(this).load(Utility.randMicrobe()).into(headerImage);
+        }
+        else {
             Picasso.with(this).load(mVaccineData.getLink()).into(headerImage);
+>>>>>>> d206612db30dc2de1e1706f2a1c4939bd23c0495
         }
 
         RelativeLayout moreInfoLayout = (RelativeLayout) findViewById(R.id.more_info_button);
@@ -161,6 +183,8 @@ public class VaccineInfoActivity extends AppCompatActivity implements View.OnCli
             i.addCategory("android.intent.category.DEFAULT");
             startActivity(i);
         }
+<<<<<<< HEAD
+=======
     }
 
     public static void startAlphaAnimation (View v, long duration, int visibility) {
@@ -171,6 +195,7 @@ public class VaccineInfoActivity extends AppCompatActivity implements View.OnCli
         alphaAnimation.setDuration(duration);
         alphaAnimation.setFillAfter(true);
         v.startAnimation(alphaAnimation);
+>>>>>>> d206612db30dc2de1e1706f2a1c4939bd23c0495
     }
 
     @Override
@@ -178,6 +203,7 @@ public class VaccineInfoActivity extends AppCompatActivity implements View.OnCli
 
         int maxScroll = appBarLayout.getTotalScrollRange();
         float percentage = (float) Math.abs(verticalOffset) / (float) maxScroll;
+
         //TODO: fade out icon
 
     }

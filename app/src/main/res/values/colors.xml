@@ -16,6 +16,6 @@
     <color name="immuno_medical_blue">#0973e4</color>
     <color name="header_background_overlay">#80000000</color>
     <color name="black_semi_transparent">#B2000000</color>
-    <color name="immuno_medium_grey">#512DA8</color>
+    <color name="immuno_medium_grey">#525252</color>
     <color name="immuno_light_green">#009688</color>
 </resources>

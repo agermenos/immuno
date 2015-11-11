@@ -9,12 +9,10 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -26,7 +24,6 @@ import com.udacity.immuno.database.DBHelper;
 import com.udacity.immuno.database.VaccineData;
 import com.udacity.immuno.pojos.Country;
 import com.udacity.immuno.pojos.CountryList;
-import com.udacity.immuno.utils.CircleTransform;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -53,7 +50,6 @@ public class CountryActivity extends AppCompatActivity implements AppBarLayout.O
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
         mActivity = this;
         ButterKnife.bind(this);
         VaccineData vaccineData = getIntent().getParcelableExtra("vaccineInfo");
@@ -65,10 +61,9 @@ public class CountryActivity extends AppCompatActivity implements AppBarLayout.O
         collapsingToolbar.setTitle(Utility.capitalize(vaccineData.getCasualName()));
         toolbar.setSubtitle(vaccineData.getFormalName());
 
-
         //countrySubtitle.setText(vaccineData.getFormalName());
-        ImageView picture = (ImageView) findViewById(R.id.image);
-        Picasso.with(this).load(vaccineData.getLink()).transform(new CircleTransform()).into(picture);
+        ImageView picture = (ImageView) findViewById(R.id.header_image);
+        Picasso.with(this).load(vaccineData.getLink()).into(picture);
         _countryName = vaccineData.getCasualName();
         new AsyncHttpTask().execute(_countryName);
     }
