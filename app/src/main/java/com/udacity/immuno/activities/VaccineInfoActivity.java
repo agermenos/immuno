@@ -68,7 +68,7 @@ public class VaccineInfoActivity extends AppCompatActivity implements View.OnCli
         }
 
         RelativeLayout moreInfoLayout = (RelativeLayout) findViewById(R.id.more_info_button);
-        final String vaccine_info_url = mVaccineData.getLink();
+        final String vaccine_info_url = "http://wwwnc.cdc.gov/travel/diseases/routine";
 
         moreInfoLayout.setOnClickListener(new View.OnClickListener() {
             @Override
