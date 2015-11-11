@@ -24,7 +24,6 @@ import com.udacity.immuno.database.DBHelper;
 import com.udacity.immuno.database.VaccineData;
 import com.udacity.immuno.pojos.Country;
 import com.udacity.immuno.pojos.CountryList;
-import com.udacity.immuno.utils.CircleTransform;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -64,7 +63,7 @@ public class CountryActivity extends AppCompatActivity implements AppBarLayout.O
 
         //countrySubtitle.setText(vaccineData.getFormalName());
         ImageView picture = (ImageView) findViewById(R.id.header_image);
-        Picasso.with(this).load(vaccineData.getLink()).transform(new CircleTransform()).into(picture);
+        Picasso.with(this).load(vaccineData.getLink()).into(picture);
         _countryName = vaccineData.getCasualName();
         new AsyncHttpTask().execute(_countryName);
     }

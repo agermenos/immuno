@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/user_details_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="24dp">
+
+    <TextView
+        android:id="@+id/textview_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Your Details"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="30dp"
+        android:textSize="@dimen/article_titles"
+        android:textAppearance="@style/TextAppearance.AppCompat.Button"
+        android:textColor="@color/immuno_grey"/>
+
+    <TextView
+        android:id="@+id/last_dose_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="September 10, 2014"
+        android:layout_marginLeft="30dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/textview_details"/>
+
+    <TextView
+        android:id="@+id/last_dose_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Last Dose"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="30dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        android:layout_below="@id/last_dose_date"
+        />
+
+    <TextView
+        android:id="@+id/next_dose_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="March 12, 2016"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="30dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:layout_below="@id/last_dose_label"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Next Dose"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="30dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        android:layout_below="@+id/next_dose_date"/>
+</RelativeLayout>
