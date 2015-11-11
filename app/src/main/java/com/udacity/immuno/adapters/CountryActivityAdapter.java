@@ -133,7 +133,6 @@ public class CountryActivityAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                 //TODO: set data for this vaccine
                 //Vaccine vaccine = vaccineDataList.get(position - 1); //account for header view
                 vaccineView.vaccineName.setText("");
-                vaccineView.vaccineFormalName.setText("");
 
                 //TODO: set icon and set action
                 break;
