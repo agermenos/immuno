@@ -36,8 +36,6 @@ public class MainActivityAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private static final int TYPE_BUTTON_MORE = 3;
     private static final int TYPE_VACCINE = 4;
 
-
-
     public MainActivityAdapter(Context context, List<VaccineData> vaccineDataList) {
         this.vaccineDataList = vaccineDataList;
         this.mContext = context;
