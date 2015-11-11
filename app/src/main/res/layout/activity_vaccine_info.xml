@@ -100,21 +100,23 @@
     <include layout="@layout/content_vaccine_info" />
 
     <com.getbase.floatingactionbutton.FloatingActionsMenu
-        app:layout_anchorGravity="bottom|right"
-        android:layout_margin="@dimen/fab_margin"
-        android:clickable="true"
-        android:id="@+id/multiple_actions_down"
+        app:layout_anchorGravity="right|end|bottom"
+        android:layout_gravity="bottom|end"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        fab:fab_labelStyle="@style/menu_labels_style"
+        android:layout_marginBottom="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginEnd="12dp"
+        android:id="@+id/multiple_actions_down"
         fab:fab_addButtonColorNormal="@color/immuno_white"
         fab:fab_addButtonColorPressed="@color/immuno_white_pressed"
         fab:fab_addButtonSize="normal"
         fab:fab_addButtonPlusIconColor="@color/immuno_grey"
         fab:fab_expandDirection="up"
-        fab:fab_labelStyle="@style/menu_labels_style"
-        android:layout_marginRight="16dp"
         app:layout_anchor="@id/appbar">
 
         <com.getbase.floatingactionbutton.FloatingActionButton
@@ -125,6 +127,7 @@
             fab:fab_colorPressed="@color/immuno_white_pressed"
             fab:fab_title="@string/call_for_appt"
             fab:fab_icon="@drawable/ic_phone_24dp"
+            android:background="@color/immuno_white"
             app:fab_size="mini"/>
 
         <com.getbase.floatingactionbutton.FloatingActionButton
@@ -135,6 +138,7 @@
             fab:fab_colorPressed="@color/immuno_white_pressed"
             fab:fab_title="@string/add_reminder"
             fab:fab_icon="@drawable/ic_reminder_outline_24dp"
+            android:background="@color/immuno_white"
             app:fab_size="mini"/>
 
         <com.getbase.floatingactionbutton.FloatingActionButton
@@ -145,6 +149,7 @@
             fab:fab_colorPressed="@color/immuno_white_pressed"
             fab:fab_title="@string/schedule_date"
             fab:fab_icon="@drawable/ic_event_24dp"
+            android:background="@color/immuno_white"
             app:fab_size="mini"/>
 
         <com.getbase.floatingactionbutton.FloatingActionButton
@@ -155,7 +160,9 @@
             fab:fab_colorPressed="@color/immuno_white_pressed"
             fab:fab_title="@string/add_to_my_list"
             fab:fab_icon="@drawable/ic_add_24dp"
+            android:background="@color/immuno_white"
             app:fab_size="mini"/>
 
     </com.getbase.floatingactionbutton.FloatingActionsMenu>
+
 </android.support.design.widget.CoordinatorLayout>
