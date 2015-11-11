@@ -39,7 +39,7 @@ public class VaccineInfoActivity extends AppCompatActivity implements View.OnCli
         collapsingToolbar.setTitle(strCasualName);
         TextView vaccineDesc = (TextView) findViewById(R.id.vaccine_description);
         ImageView picture = (ImageView) findViewById(R.id.image);
-        vaccineDesc.setText(vaccineData.getDescription());
+        vaccineDesc.setText(mVaccineData.getDescription());
         Picasso.with(this).load(Utility.randMicrobe()).transform(new CircleTransform()).into(picture);
         vaccineDesc.setText(mVaccineData.getDescription());
         if (mVaccineData.getUserId()!=2000) {
