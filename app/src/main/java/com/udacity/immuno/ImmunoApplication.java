@@ -17,6 +17,7 @@ public class ImmunoApplication extends Application {
         MultiDex.install(this);
         ActiveAndroid.initialize(this);
         //To Initialize
+
         DBHelper.setupDemoUserInfo();
         DBHelper.getPrimaryUser();
     }

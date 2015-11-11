@@ -16,11 +16,15 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.udacity.immuno.R;
 import com.udacity.immuno.adapters.CustomViewHolder;
 import com.udacity.immuno.adapters.RecycleViewAdapter;
 import com.udacity.immuno.database.DBHelper;
 import com.udacity.immuno.database.VaccineData;
+import com.udacity.immuno.pojos.PojoHelper;
+import com.udacity.immuno.pojos.Vaccine;
+import com.udacity.immuno.pojos.Vaccines;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -149,6 +153,7 @@ public class SearchFragment extends Fragment {
         public void onItemClicked(VaccineData vaccineData) {
             //on selection of Item
             Intent intent = new Intent(getActivity(), VaccineInfoActivity.class);
+            Log.d(TAG, "Vaccine Selected: " + vaccineData.getCasualName());
             intent.putExtra("vaccineInfo", vaccineData);
             intent.putExtra("userId", DBHelper.getPrimaryUserId());
             startActivity(intent);
@@ -158,66 +163,23 @@ public class SearchFragment extends Fragment {
     public void onSearch(String searchText){
         finalDataList = new ArrayList<>();
         progressBar.setVisibility(View.VISIBLE);
-        // TODO Add header
         new AsyncHttpTask().execute(searchText);
+       // new AsyncHttpTask().execute();
     }
 
     private void parseResult(String result) {
         List<VaccineData> vaccineDataList = new ArrayList<>();
-        try {
-            JSONObject response = new JSONObject(result);
-            JSONArray vaccines = response.optJSONArray("vaccines");
+        Vaccines vaccines = new Gson().fromJson(result, Vaccines.class);
 
-            Random r = new Random();
-
-            for (int i = 0; i < vaccines.length() || i<=20; i++) {
-                try {
-                    JSONObject vaccine = vaccines.optJSONObject(i);
-                    VaccineData item = new VaccineData();
-                    // load item
-                    item.setScheduleDate(new Date());
-                    item.setStatus(r.nextInt(4));
-                    item.setUserId(0);
-                    item.setVaccineApiId(vaccine.getString("_ID"));
-                    item.setFormalName(vaccine.getString("formal_name"));
-                    vaccineDataList.add(item);
-                }
-                catch (Exception e) {
-                    Log.e(TAG, e.getMessage());
-                }
+        for (Vaccine vaccine : vaccines.getVaccines()) {
+            try {
+                VaccineData vaccineData = PojoHelper.convert(vaccine);
+                vaccineDataList.add(vaccineData);
+            } catch (Exception e) {
+                Log.e(TAG, e.getMessage());
             }
-        } catch (JSONException e) {
-            e.printStackTrace();
         }
         finalDataList.addAll(vaccineDataList);
-    }
-
-    private void parseCountryResult(String result) {
-        List<VaccineData> countryDataList = new ArrayList<>();
-        try {
-            JSONObject response = new JSONObject(result);
-            JSONArray countries = response.optJSONArray("countries");
-
-            for (int i = 0; i < countries.length() || i<=20; i++) {
-                try {
-                    JSONObject country = countries.optJSONObject(i);
-                    VaccineData item = new VaccineData();
-                    // load item
-                    item.setScheduleDate(new Date());
-                    item.setUserId(2000);
-                    item.setVaccineApiId(country.getString("country_name"));
-                    item.setCasualName(country.getString("country_name"));
-                    item.setFormalName(country.optJSONArray("Some travelers").length() + " " + getString(R.string.required_vaccines));
-                    countryDataList.add(item);
-                }
-                catch (Exception e) {
-                    Log.e(TAG, e.getMessage());
-                }
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        finalDataList.addAll(countryDataList);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
