@@ -1,5 +1,7 @@
 package com.udacity.immuno.activities;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.NavUtils;
@@ -8,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -48,6 +51,17 @@ public class VaccineInfoActivity extends AppCompatActivity implements View.OnCli
         else {
             Picasso.with(this).load(mVaccineData.getLink()).transform(new CircleTransform()).into(picture);
         }
+
+
+        RelativeLayout moreInfoLayout = (RelativeLayout) findViewById(R.id.more_info_button);
+        final String vaccine_info_url = mVaccineData.getLink();
+        moreInfoLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(vaccine_info_url));
+                startActivity(browserIntent);
+            }
+        });
     }
 
     @Override

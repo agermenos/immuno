@@ -43,6 +43,7 @@
             <!--android:drawableRight="@drawable/ic_country_icon"/>-->
 
         <RelativeLayout
+            android:id="@+id/more_info_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clickable="true">
@@ -79,7 +80,8 @@
             android:text="Your Details"
             android:layout_marginTop="20dp"
             android:layout_marginLeft="30dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Button"/>
+            android:textSize="@dimen/article_titles"
+            android:textColor="@color/immuno_grey"/>
 
             <TextView
                 android:id="@+id/last_dose_date"
