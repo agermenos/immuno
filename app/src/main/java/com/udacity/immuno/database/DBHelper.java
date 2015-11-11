@@ -63,7 +63,7 @@ public class DBHelper {
        return list;
     }
 
-    public static VaccineData addVaccineForUser(String casualName, String formalName, String vaccineApiId, Date scheduledDate, @VaccineStatus int vaccineStatus, long userId, String routine){
+    public static VaccineData addVaccineForUser(String casualName, String formalName, String vaccineApiId, Date scheduledDate, @VaccineStatus int vaccineStatus, long userId, String routine, String description){
         VaccineData vaccineData = new VaccineData();
         vaccineData.setUserId(userId);
         vaccineData.setScheduleDate(scheduledDate);
@@ -72,6 +72,7 @@ public class DBHelper {
         vaccineData.setCasualName(casualName);
         vaccineData.setFormalName(formalName);
         vaccineData.setCategory(routine);
+        vaccineData.setDescription(description);
         vaccineData.save();
         return vaccineData;
     }
@@ -104,27 +105,27 @@ public class DBHelper {
         Long userId = user.getId();
         //Vaccines Senthi July 7th 1984
         //ADD EXTRA ARGUMENTS FOR ROUTINE AND CHANGE STATUS
-        addVaccineForUser("DTaP", "None", "2", getDate("10-Nov-2009"),STATUS_COMPLETED,userId, "Routine");
-        addVaccineForUser("Hepatitis A","None", "3", getDate("2-Jan-2000"),STATUS_COMPLETED,userId, "Routine");
-        addVaccineForUser("Hepatitis B", "None", "4",getDate("2-Jan-2000"),STATUS_GOOD_FOR_LIFE,userId, "Routine");
-        addVaccineForUser("Haemophilus Influenzae type b", "None", "5",getDate("2-Aug-2011"),STATUS_COMPLETED,userId, "Routine");
+        addVaccineForUser("DTaP", "None", "2", getDate("10-Nov-2009"),STATUS_COMPLETED,userId, "Routine", "Routine vaccines are those that are recommended for everyone in the United States, depending on age and your vaccine history. (See routine vaccine schedules.) Most people think of these as childhood vaccines that you get before starting school, but some vaccines are routinely recommended for adults, and some are recommended every year (a flu vaccine) or every 10 years (a tetanus booster).");
+        addVaccineForUser("Hepatitis A","None", "3", getDate("2-Jan-2000"),STATUS_COMPLETED,userId, "Routine", "Routine vaccines are those that are recommended for everyone in the United States, depending on age and your vaccine history. (See routine vaccine schedules.) Most people think of these as childhood vaccines that you get before starting school, but some vaccines are routinely recommended for adults, and some are recommended every year (a flu vaccine) or every 10 years (a tetanus booster).");
+        addVaccineForUser("Hepatitis B", "None", "4",getDate("2-Jan-2000"),STATUS_GOOD_FOR_LIFE,userId, "Routine", "Routine vaccines are those that are recommended for everyone in the United States, depending on age and your vaccine history. (See routine vaccine schedules.) Most people think of these as childhood vaccines that you get before starting school, but some vaccines are routinely recommended for adults, and some are recommended every year (a flu vaccine) or every 10 years (a tetanus booster).");
+        addVaccineForUser("Haemophilus Influenzae type b", "None", "5",getDate("2-Aug-2011"),STATUS_COMPLETED,userId, "Routine", "Routine vaccines are those that are recommended for everyone in the United States, depending on age and your vaccine history. (See routine vaccine schedules.) Most people think of these as childhood vaccines that you get before starting school, but some vaccines are routinely recommended for adults, and some are recommended every year (a flu vaccine) or every 10 years (a tetanus booster).");
         //addVaccineForUser("HPV - Cervarix", "None", "6",getDate("10-Nov-2014"),STATUS_COMPLETED,userId, "Routine");
-        addVaccineForUser("HPV - Gardasil-9", "None", "7",getDate("20-Dec-2012"),STATUS_COMPLETED,userId, "Routine");
+        addVaccineForUser("HPV - Gardasil-9", "None", "7",getDate("20-Dec-2012"),STATUS_COMPLETED,userId, "Routine", "Routine vaccines are those that are recommended for everyone in the United States, depending on age and your vaccine history. (See routine vaccine schedules.) Most people think of these as childhood vaccines that you get before starting school, but some vaccines are routinely recommended for adults, and some are recommended every year (a flu vaccine) or every 10 years (a tetanus booster).");
         //addVaccineForUser("HPV - Gardasil", "None", "8",getDate("10-Nov-2014"),STATUS_COMPLETED,userId, "Routine");
         //addVaccineForUser("Influenza - Live, Intranasal", "None", "9",getDate("10-Nov-2014"),STATUS_COMPLETED,userId, "Routine");
-        addVaccineForUser("Influenza - Inactivated", "None", "10",getDate("10-Nov-2014"),STATUS_SCHEDULED,userId, "Routine");
+        addVaccineForUser("Influenza - Inactivated", "None", "10",getDate("10-Nov-2014"),STATUS_SCHEDULED,userId, "Routine", "Routine vaccines are those that are recommended for everyone in the United States, depending on age and your vaccine history. (See routine vaccine schedules.) Most people think of these as childhood vaccines that you get before starting school, but some vaccines are routinely recommended for adults, and some are recommended every year (a flu vaccine) or every 10 years (a tetanus booster).");
         //addVaccineForUser("MMR","11",getDate("10-Nov-2014"),STATUS_COMPLETED,userId, "Routine");
-        addVaccineForUser("MMRV","Measles/Mumps/Rubella", "12",getDate("13-Feb-2008"),STATUS_COMPLETED,userId, "Routine");
+        addVaccineForUser("MMRV","Measles/Mumps/Rubella", "12",getDate("13-Feb-2008"),STATUS_COMPLETED,userId, "Routine", "Routine vaccines are those that are recommended for everyone in the United States, depending on age and your vaccine history. (See routine vaccine schedules.) Most people think of these as childhood vaccines that you get before starting school, but some vaccines are routinely recommended for adults, and some are recommended every year (a flu vaccine) or every 10 years (a tetanus booster).");
         //addVaccineForUser("Meningococcal","None","13",getDate("10-Nov-2013"),STATUS_COMPLETED,userId, "Routine");
-        addVaccineForUser("MenB", "Serogroup B Meningococcal ", "14",getDate("10-Dec-2014"),STATUS_COMPLETED,userId, "Routine");
-        addVaccineForUser("PCV13","Pneumococcal Conjugate", "15",getDate("10-Dec-2014"),STATUS_TO_BE_SCHEDULED,userId, "Routine");
-        addVaccineForUser("PPSV23","Pneumococcal Polysaccharide", "16",getDate("10-Dec-2014"),STATUS_COMPLETED,userId, "Routine");
-        addVaccineForUser("Polio", "None", "17",getDate("3-Sep-1990"),STATUS_COMPLETED,userId, "Routine");
-        addVaccineForUser("Rotavirus","None", "18",getDate("7-Jan-1985"),STATUS_GOOD_FOR_LIFE,userId, "Routine");
+        addVaccineForUser("MenB", "Serogroup B Meningococcal ", "14",getDate("10-Dec-2014"),STATUS_COMPLETED,userId, "Routine", "Routine vaccines are those that are recommended for everyone in the United States, depending on age and your vaccine history. (See routine vaccine schedules.) Most people think of these as childhood vaccines that you get before starting school, but some vaccines are routinely recommended for adults, and some are recommended every year (a flu vaccine) or every 10 years (a tetanus booster).");
+        addVaccineForUser("PCV13","Pneumococcal Conjugate", "15",getDate("10-Dec-2014"),STATUS_TO_BE_SCHEDULED,userId, "Routine", "Routine vaccines are those that are recommended for everyone in the United States, depending on age and your vaccine history. (See routine vaccine schedules.) Most people think of these as childhood vaccines that you get before starting school, but some vaccines are routinely recommended for adults, and some are recommended every year (a flu vaccine) or every 10 years (a tetanus booster).");
+        addVaccineForUser("PPSV23","Pneumococcal Polysaccharide", "16",getDate("10-Dec-2014"),STATUS_COMPLETED,userId, "Routine", "Routine vaccines are those that are recommended for everyone in the United States, depending on age and your vaccine history. (See routine vaccine schedules.) Most people think of these as childhood vaccines that you get before starting school, but some vaccines are routinely recommended for adults, and some are recommended every year (a flu vaccine) or every 10 years (a tetanus booster).");
+        addVaccineForUser("Polio", "None", "17",getDate("3-Sep-1990"),STATUS_COMPLETED,userId, "Routine", "Routine vaccines are those that are recommended for everyone in the United States, depending on age and your vaccine history. (See routine vaccine schedules.) Most people think of these as childhood vaccines that you get before starting school, but some vaccines are routinely recommended for adults, and some are recommended every year (a flu vaccine) or every 10 years (a tetanus booster).");
+        addVaccineForUser("Rotavirus","None", "18",getDate("7-Jan-1985"),STATUS_GOOD_FOR_LIFE,userId, "Routine", "Routine vaccines are those that are recommended for everyone in the United States, depending on age and your vaccine history. (See routine vaccine schedules.) Most people think of these as childhood vaccines that you get before starting school, but some vaccines are routinely recommended for adults, and some are recommended every year (a flu vaccine) or every 10 years (a tetanus booster).");
         //addVaccineForUser("Herpes Zoster","Shingles", "19",getDate("10-Nov-2014"),STATUS_COMPLETED,userId, "Routine"); //Only for people > 60 years old
         //addVaccineForUser("Tetanus, Diphtheria, Pertussis", "Tdap", "20",getDate("10-Nov-2014"),STATUS_COMPLETED,userId, "Routine");
         //addVaccineForUser("Tetanus, Diphtheria","Td", "21",getDate("10-Nov-2014"),STATUS_COMPLETED,userId, "Routine");
-        addVaccineForUser("Chickenpox","Varicella", "22",getDate("10-Nov-2011"),STATUS_COMPLETED,userId, "Routine");
+        addVaccineForUser("Chickenpox","Varicella", "22",getDate("10-Nov-2011"),STATUS_COMPLETED,userId, "Routine", "Routine vaccines are those that are recommended for everyone in the United States, depending on age and your vaccine history. (See routine vaccine schedules.) Most people think of these as childhood vaccines that you get before starting school, but some vaccines are routinely recommended for adults, and some are recommended every year (a flu vaccine) or every 10 years (a tetanus booster).");
     }
 
     private static Date getDate(String s) {
