@@ -149,11 +149,21 @@ public class MainActivity extends AppCompatActivity {
         document.finishPage(pdfPage);
 
         //Save created document to sd card
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MMddyyhhss");
-        String pdfName = "ImmunoPDF"
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MMddyyyy_hhss");
+        String pdfName = "ImmunoPDF_"
                 + dateFormat.format(Calendar.getInstance().getTime()) + ".pdf";
 
-        File outputDirectory = new File(Environment.getExternalStorageDirectory().getPath());
+        if(!isExternalStorageWritable()){
+            String strStorageNotWritableError = "The External Storage is not available.";
+            ImmunoToast(strStorageNotWritableError);
+        }
+
+        File outputDirectory = new File(Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_DOCUMENTS).getPath() + "/Immuno");
+
+        if(!outputDirectory.exists()){
+            outputDirectory.mkdir();
+        }
 
         try {
             File OutputFile = new File(outputDirectory + "/" + pdfName);
@@ -166,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
             ImmunoToast(strImmunoPDFCreated);
         } catch (IOException e) {
             e.printStackTrace();
-            String strImmunoPDFError = "Could not create" + pdfName + ". Please " +
+            String strImmunoPDFError = "Could not create " + pdfName + ". Please " +
                     "check the SD Card permission in settings";
             ImmunoToast(strImmunoPDFError);
         }
@@ -176,5 +186,13 @@ public class MainActivity extends AppCompatActivity {
     private void ImmunoToast(String strText) {
         Toast immunoToast = Toast.makeText(this, strText, Toast.LENGTH_LONG);
         immunoToast.show();
+    }
+
+    public boolean isExternalStorageWritable() {
+        String state = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED.equals(state)) {
+            return true;
+        }
+        return false;
     }
 }
