@@ -45,7 +45,6 @@ public class CountryActivity extends AppCompatActivity implements AppBarLayout.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_country);
-
         mActivity = this;
         ButterKnife.bind(this);
         VaccineData vaccineData = getIntent().getParcelableExtra("vaccineInfo");
