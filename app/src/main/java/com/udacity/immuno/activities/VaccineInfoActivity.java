@@ -46,7 +46,11 @@ public class VaccineInfoActivity extends AppCompatActivity {
         */
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-        collapsingToolbar.setTitle(vaccineData.getCasualName());
+        String strCasualName = vaccineData.getCasualName();
+        if(strCasualName == null){
+            strCasualName = vaccineData.getFormalName();
+        }
+        collapsingToolbar.setTitle(strCasualName);
 
         TextView vaccineDesc = (TextView) findViewById(R.id.vaccine_description);
         ImageView picture = (ImageView) findViewById(R.id.image);
