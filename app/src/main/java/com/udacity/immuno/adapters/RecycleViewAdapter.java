@@ -77,7 +77,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<CustomViewHolder> {
             }
         }
         else {
-            customViewHolder.ibVaccineIcon.setImageResource(R.drawable.ic_vaccine_travel);
+            customViewHolder.ibVaccineIcon.setImageResource(R.drawable.ic_country_icon);
             customViewHolder.ibVaccineAction.setVisibility(View.INVISIBLE);
         }
         customViewHolder.tvName.setText(!vaccineData.getCasualName().equals("None")?
