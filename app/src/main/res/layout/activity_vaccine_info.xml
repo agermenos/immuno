@@ -32,7 +32,7 @@
                 android:layout_centerHorizontal="true">
 
                 <ImageView
-                    android:id="@+id/image"
+                    android:id="@+id/header_image"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@color/immuno_medical_blue"
@@ -60,13 +60,13 @@
                     <!--android:layout_marginLeft="30dip"/>-->
 
                 <ImageView
-                    android:id="@+id/status_img"
+                    android:id="@+id/status_tag"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
-                    android:layout_marginBottom="40dip"
-                    android:layout_marginLeft="30dip"
-                    android:background="@drawable/status_tag_update_soon" />
+                    android:layout_marginBottom="100dip"
+                    android:layout_marginLeft="16dp"
+                    android:src="@drawable/status_tag_for_life"/>
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -111,10 +111,10 @@
         android:layout_marginRight="12dp"
         android:layout_marginEnd="12dp"
         android:id="@+id/multiple_actions_down"
-        fab:fab_addButtonColorNormal="@color/immuno_white"
-        fab:fab_addButtonColorPressed="@color/immuno_white_pressed"
+        fab:fab_addButtonColorNormal="@color/colorAccent"
+        fab:fab_addButtonColorPressed="@color/colorAccent"
         fab:fab_addButtonSize="normal"
-        fab:fab_addButtonPlusIconColor="@color/immuno_grey"
+        fab:fab_addButtonPlusIconColor="@color/immuno_white"
         fab:fab_expandDirection="up"
         app:layout_anchor="@id/appbar">
 

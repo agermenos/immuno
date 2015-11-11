@@ -26,14 +26,15 @@
                 android:layout_height="wrap_content"
                 android:text="@string/detail_desc_lorem"
                 android:textSize="14sp"
+                android:lineSpacingMultiplier="1.25"
                 android:layout_gravity="center"
                 android:gravity="left"
                 android:layout_marginBottom="@dimen/md_keylines"
-                android:paddingLeft="30sp"
+                android:paddingLeft="16sp"
                 android:paddingRight="@dimen/md_keylines"
-                android:paddingTop="@dimen/md_keylines"
-                android:paddingBottom="@dimen/md_keylines"
-                android:background="@color/immuno_light_grey"
+                android:paddingTop="24dp"
+                android:paddingBottom="24dp"
+                android:background="@color/immuno_medium_grey"
                 android:textColor="@color/immuno_white" />
         </RelativeLayout>
 
