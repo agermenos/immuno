@@ -2,6 +2,7 @@ package com.udacity.immuno.database;
 
 import android.support.annotation.IntDef;
 
+import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
 
 import java.lang.annotation.Retention;
@@ -82,6 +83,9 @@ public class DBHelper {
     }
 
     public static void setupDemoUserInfo(){
+        //Delete existing data
+        new Delete().from(UserInfo.class).execute();
+        new Delete().from(VaccineData.class).execute();
         //create a new Demo User as this is a brand new install
         UserInfo user = new UserInfo();
         user.setDoctorName("Dr. Erik");

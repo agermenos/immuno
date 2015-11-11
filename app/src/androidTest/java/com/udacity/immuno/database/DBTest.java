@@ -45,7 +45,7 @@ public class DBTest extends AndroidTestCase {
         user.setUserName("user-name");
         user.save();
         assertTrue(user.getId() > 0);
-        VaccineData vaccineData = DBHelper.addVaccineForUser("casual-name","formal-name", "1234343", new Date(), DBHelper.STATUS_GOOD_FOR_LIFE, user.getId());
+        VaccineData vaccineData = DBHelper.addVaccineForUser("casual-name","formal-name", "1234343", new Date(), DBHelper.STATUS_GOOD_FOR_LIFE, user.getId(),"routine");
         assertTrue(vaccineData.getId() > 0);
         vaccineData = DBHelper.getVaccine(vaccineData.getId());
         assertTrue(vaccineData.getId() > 0);
@@ -61,7 +61,7 @@ public class DBTest extends AndroidTestCase {
         user.setUserName("user-name");
         user.save();
         assertTrue(user.getId() > 0);
-        VaccineData vaccineData = DBHelper.addVaccineForUser("casual-name","formal-name", "1234343", new Date(), DBHelper.STATUS_GOOD_FOR_LIFE, user.getId());
+        VaccineData vaccineData = DBHelper.addVaccineForUser("casual-name","formal-name", "1234343", new Date(), DBHelper.STATUS_GOOD_FOR_LIFE, user.getId(), "routine");
         assertTrue(vaccineData.getId() > 0);
         List<VaccineData> vaccineDataList = DBHelper.searchVaccinesByName("vaccine");
         assertTrue(vaccineDataList.size()==1);
