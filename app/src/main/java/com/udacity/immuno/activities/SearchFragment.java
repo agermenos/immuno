@@ -36,8 +36,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -118,7 +118,7 @@ public class SearchFragment extends Fragment {
                 int statusCode = urlConnection.getResponseCode();
 
                 // 200 represents HTTP OK
-                if (statusCode == 200) {
+                if (statusCode == 200 && result==1) { //if previous call was successful
                     BufferedReader r = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
                     StringBuilder response = new StringBuilder();
                     String line;
@@ -142,7 +142,7 @@ public class SearchFragment extends Fragment {
             progressBar.setVisibility(View.GONE);
 
             if (result == 1) {
-                adapter = new RecycleViewAdapter(getContext(), finalDataList, this);
+                adapter = new RecycleViewAdapter(getContext(), dedupeList(finalDataList), this);
                 mRecyclerView.setAdapter(adapter);
             } else {
                 Toast.makeText(getActivity(), "Failed to fetch data!", Toast.LENGTH_SHORT).show();
@@ -158,6 +158,14 @@ public class SearchFragment extends Fragment {
             intent.putExtra("userId", DBHelper.getPrimaryUserId());
             startActivity(intent);
         }
+    }
+
+    private List<VaccineData> dedupeList(List<VaccineData> finalDataList) {
+        HashMap<String, VaccineData> returnhHash=new HashMap<>();
+        for (VaccineData vd:finalDataList){
+            returnhHash.put(vd.getCasualName(), vd);
+        }
+        return new ArrayList<>(returnhHash.values());
     }
 
     public void onSearch(String searchText){
@@ -183,14 +191,28 @@ public class SearchFragment extends Fragment {
 
     private void parseCountryResult(String result) {
         List<VaccineData> countryDataList = new ArrayList<>();
-        Vaccines vaccines = new Gson().fromJson(result, Vaccines.class);
-        for (Vaccine country : vaccines.getVaccines()) {
-            try {
-                VaccineData countryData = PojoHelper.convert(country);
-                countryDataList.add(countryData);
-            } catch (Exception e) {
-                Log.e(TAG, e.getMessage());
+        try {
+            JSONObject response = new JSONObject(result);
+            JSONArray countries = response.optJSONArray("countries");
+
+            for (int i = 0; i < countries.length() || i<=20; i++) {
+                try {
+                    JSONObject country = countries.optJSONObject(i);
+                    VaccineData item = new VaccineData();
+                    // load item
+                    item.setScheduleDate(new Date());
+                    item.setUserId(2000);
+                    item.setVaccineApiId(country.getString("country_name"));
+                    item.setCasualName(country.getString("country_name"));
+                    item.setFormalName(country.optJSONArray("Some travelers").length() + " " + getString(R.string.required_vaccines));
+                    countryDataList.add(item);
+                }
+                catch (Exception e) {
+                    Log.e(TAG, e.getMessage());
+                }
             }
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
         finalDataList.addAll(countryDataList);
     }
