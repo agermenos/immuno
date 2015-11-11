@@ -82,12 +82,13 @@
                 android:text="TRAVEL INFO"
                 android:textSize="@dimen/article_titles"
                 android:layout_marginBottom="@dimen/md_keylines"
-                android:layout_marginTop="30dp"
-                android:layout_alignParentLeft="true"/>
+                android:layout_marginLeft="30dp"
+                android:layout_alignParentLeft="true"
+                />
 
             <ImageView
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:gravity="right"
                 android:background="@drawable/ic_arrow_forward_24dp"
@@ -97,72 +98,61 @@
 
         <include layout="@layout/divider_horizonal_full"/>
 
-        <LinearLayout android:id="@+id/user_details_container"
-            android:orientation="vertical"
+        <RelativeLayout android:id="@+id/user_details_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/textview_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Your Details"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="30dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Button"/>
+
+            <TextView
+                android:id="@+id/last_dose_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="September 10, 2014"
+                android:layout_marginLeft="30dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:layout_marginTop="20dp"
+                android:layout_below="@+id/textview_details"/>
+
+            <TextView
+                android:id="@+id/last_dose_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Last Dose"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="30dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                android:layout_below="@id/last_dose_date"
+                />
+
+            <TextView
+                android:id="@+id/next_dose_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="March 12, 2016"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="30dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:layout_below="@id/last_dose_label"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Your Details"
-                android:textAppearance="@style/TextAppearance.AppCompat.Button"/>
+                android:text="Next Dose"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="30dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                android:layout_below="@+id/next_dose_date"/>
+        </RelativeLayout>
 
-            <RelativeLayout android:id="@+id/last_dose_container"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Your Details"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Your Details"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"/>
-
-                </RelativeLayout>
-
-                <RelativeLayout android:id="@+id/next_dose_container"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="September 10, 2016"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Next Dose"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Caption"/>
-
-                </RelativeLayout>
-
-                <RelativeLayout android:id="@+id/next_appointment_container"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="September 12, 2015"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Next Dose"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Caption"/>
-
-                </RelativeLayout>
-
-        </LinearLayout>
+        <include layout="@layout/divider_horizonal_full"/>
 
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

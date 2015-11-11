@@ -98,8 +98,6 @@
         android:src="@drawable/ic_search_24dp" />
     -->
 
-    <include layout="@layout/content_vaccine_info" />
-
     <com.getbase.floatingactionbutton.FloatingActionsMenu
         app:layout_anchorGravity="bottom|right|end"
         android:layout_margin="@dimen/fab_margin"
