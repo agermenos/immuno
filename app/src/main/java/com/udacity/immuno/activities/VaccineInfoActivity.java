@@ -55,6 +55,7 @@ public class VaccineInfoActivity extends AppCompatActivity implements View.OnCli
 
         RelativeLayout moreInfoLayout = (RelativeLayout) findViewById(R.id.more_info_button);
         final String vaccine_info_url = mVaccineData.getLink();
+
         moreInfoLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
