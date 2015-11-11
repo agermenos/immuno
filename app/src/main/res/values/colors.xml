@@ -15,4 +15,5 @@
     <color name="immuno_white_pressed">#f1f1f1</color>
     <color name="immuno_medical_blue">#0973e4</color>
     <color name="header_background_overlay">#80000000</color>
+    <color name="black_semi_transparent">#B2000000</color>
 </resources>

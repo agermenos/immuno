@@ -129,6 +129,7 @@
             fab:fab_title="@string/call_for_appt"
             fab:fab_icon="@drawable/ic_phone_24dp"
             android:background="@color/immuno_white"
+            fab:fab_labelStyle="@style/menu_labels_style"
             app:fab_size="mini"/>
 
         <com.getbase.floatingactionbutton.FloatingActionButton
@@ -140,6 +141,7 @@
             fab:fab_title="@string/add_reminder"
             fab:fab_icon="@drawable/ic_reminder_outline_24dp"
             android:background="@color/immuno_white"
+            fab:fab_labelStyle="@style/menu_labels_style"
             app:fab_size="mini"/>
 
         <com.getbase.floatingactionbutton.FloatingActionButton
@@ -151,6 +153,7 @@
             fab:fab_title="@string/schedule_date"
             fab:fab_icon="@drawable/ic_event_24dp"
             android:background="@color/immuno_white"
+            fab:fab_labelStyle="@style/menu_labels_style"
             app:fab_size="mini"/>
 
         <com.getbase.floatingactionbutton.FloatingActionButton
@@ -162,6 +165,7 @@
             fab:fab_title="@string/add_to_my_list"
             fab:fab_icon="@drawable/ic_add_24dp"
             android:background="@color/immuno_white"
+            fab:fab_labelStyle="@style/menu_labels_style"
             app:fab_size="mini"/>
 
     </com.getbase.floatingactionbutton.FloatingActionsMenu>
