@@ -9,6 +9,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -29,6 +30,20 @@ public class DBHelper {
     public static void addVaccineForUser(VaccineData vaccineData, long userId) {
         vaccineData.setUserId(userId);
         vaccineData.save();
+    }
+
+    public static VaccineData checkForTodaysVaccines() {
+        List<VaccineData> list = new Select().from(VaccineData.class).execute();
+        if(null!=list && !list.isEmpty()){
+            Calendar calendar = Calendar.getInstance();
+            calendar.roll(Calendar.DAY_OF_MONTH, -1);
+            for(VaccineData vaccineData : list){
+                if(vaccineData.getScheduleDate().after(calendar.getTime())){
+                    return vaccineData;
+                }
+            }
+        }
+        return null;
     }
 
     @IntDef({STATUS_GOOD_FOR_LIFE, STATUS_COMPLETED, STATUS_SCHEDULED, STATUS_TO_BE_SCHEDULED})
@@ -59,11 +74,6 @@ public class DBHelper {
     public static List<VaccineData> getVaccineForUser(long userId){
        List<VaccineData> list = new Select().from(VaccineData.class).where("user_id = ?", userId).execute();
        return list;
-    }
-
-    public static List<VaccineData> getVaccineByAPIId(long userId){
-        List<VaccineData> list = new Select().from(VaccineData.class).where("vaccine_api_id = ?", userId).execute();
-        return list;
     }
 
     public static VaccineData addVaccineForUser(String casualName, String formalName, String vaccineApiId, Date scheduledDate, @VaccineStatus int vaccineStatus, long userId, String routine){

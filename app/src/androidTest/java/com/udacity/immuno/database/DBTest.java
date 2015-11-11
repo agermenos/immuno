@@ -63,7 +63,22 @@ public class DBTest extends AndroidTestCase {
         assertTrue(user.getId() > 0);
         VaccineData vaccineData = DBHelper.addVaccineForUser("casual-name","formal-name", "1234343", new Date(), DBHelper.STATUS_GOOD_FOR_LIFE, user.getId(), "routine");
         assertTrue(vaccineData.getId() > 0);
-        List<VaccineData> vaccineDataList = DBHelper.searchVaccinesByName("vaccine");
+        List<VaccineData> vaccineDataList = DBHelper.searchVaccinesByName("casual-name");
         assertTrue(vaccineDataList.size()==1);
+    }
+
+    public void testSearchVaccinesForToday(){
+        UserInfo user = new UserInfo();
+        user.setDoctorName("doctor-name");
+        user.setHealthProvider("health-provider");
+        user.setIsPrimary(true);
+        user.setRelationship("self");
+        user.setUserName("user-name");
+        user.save();
+        assertTrue(user.getId() > 0);
+        VaccineData vaccineData = DBHelper.addVaccineForUser("casual-name", "formal-name", "1234343", new Date(), DBHelper.STATUS_GOOD_FOR_LIFE, user.getId(), "routine");
+        assertTrue(vaccineData.getId() > 0);
+        VaccineData vaccineData1 = DBHelper.checkForTodaysVaccines();
+        assertTrue(null!=vaccineData1);
     }
 }

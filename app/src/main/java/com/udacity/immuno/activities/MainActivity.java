@@ -1,5 +1,9 @@
 package com.udacity.immuno.activities;
 
+import android.app.job.JobInfo;
+import android.app.job.JobScheduler;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.pdf.PdfDocument;
 import android.os.Bundle;
@@ -10,12 +14,14 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 import com.udacity.immuno.R;
+import com.udacity.immuno.utils.ReminderJobService;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -30,9 +36,11 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
     public static final String TAG = MainActivity.class.getSimpleName();
+    private static final String LOG_TAG = MainActivity.class.getSimpleName();
 
     @Bind(R.id.navigation_view) NavigationView mNavigationView;
     @Bind(R.id.drawer_layout) DrawerLayout mDrawerLayout;
+    private JobScheduler mJobScheduler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +62,16 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        mJobScheduler = (JobScheduler) getSystemService( Context.JOB_SCHEDULER_SERVICE );
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            JobInfo.Builder builder = new JobInfo.Builder( 1, new ComponentName( getPackageName(), ReminderJobService.class.getName() ) );
+            builder.setPeriodic(10000);
+            if( mJobScheduler.schedule( builder.build() ) <= 0 ) {
+                Log.e(LOG_TAG, "Error in scheduling");
+            }
+        }
+
     }
 
     private void setUpToolbar() {
