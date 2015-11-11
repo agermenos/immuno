@@ -170,7 +170,6 @@ public class SearchFragment extends Fragment {
     private void parseResult(String result) {
         List<VaccineData> vaccineDataList = new ArrayList<>();
         Vaccines vaccines = new Gson().fromJson(result, Vaccines.class);
-
         for (Vaccine vaccine : vaccines.getVaccines()) {
             try {
                 VaccineData vaccineData = PojoHelper.convert(vaccine);
@@ -180,6 +179,20 @@ public class SearchFragment extends Fragment {
             }
         }
         finalDataList.addAll(vaccineDataList);
+    }
+
+    private void parseCountryResult(String result) {
+        List<VaccineData> countryDataList = new ArrayList<>();
+        Vaccines vaccines = new Gson().fromJson(result, Vaccines.class);
+        for (Vaccine country : vaccines.getVaccines()) {
+            try {
+                VaccineData countryData = PojoHelper.convert(country);
+                countryDataList.add(countryData);
+            } catch (Exception e) {
+                Log.e(TAG, e.getMessage());
+            }
+        }
+        finalDataList.addAll(countryDataList);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
