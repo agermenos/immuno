@@ -42,7 +42,6 @@ import java.util.Random;
  * to handle interaction events.
  */
 public class SearchFragment extends Fragment {
-
     private OnFragmentInteractionListener mListener;
     private List<VaccineData> finalDataList;
 
@@ -127,6 +126,7 @@ public class SearchFragment extends Fragment {
         public void onItemClicked(VaccineData vaccineData) {
             //on selection of Item
             Intent intent = new Intent(getActivity(), VaccineInfoActivity.class);
+            Log.d(TAG, "Vaccine Selected: "+ vaccineData.getCasualName());
             intent.putExtra("vaccineInfo", vaccineData);
             intent.putExtra("userId", DBHelper.getPrimaryUserId());
             startActivity(intent);
