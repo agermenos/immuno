@@ -14,29 +14,38 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="fill_parent"
-            android:text="@string/detail_desc_lorem"
-            android:textSize="14sp"
-            android:layout_gravity="center"
-            android:gravity="left"
-            android:layout_marginBottom="@dimen/md_keylines"
-            android:paddingLeft="30sp"
-            android:paddingRight="@dimen/md_keylines"
-            android:paddingTop="@dimen/md_keylines"
-            android:paddingBottom="@dimen/md_keylines"
-            android:background="@color/immuno_light_grey"
-            android:textColor="@color/immuno_white"
-            android:id="@+id/vaccine_description"/>
-
         <RelativeLayout
-            android:id="@+id/more_info"
+            android:id="@+id/vaccine_description_container"
             android:layout_width="fill_parent"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true">
+            <TextView
+                android:id="@+id/vaccine_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/detail_desc_lorem"
+                android:textSize="14sp"
+                android:layout_gravity="center"
+                android:gravity="left"
+                android:layout_marginBottom="@dimen/md_keylines"
+                android:paddingLeft="30sp"
+                android:paddingRight="@dimen/md_keylines"
+                android:paddingTop="@dimen/md_keylines"
+                android:paddingBottom="@dimen/md_keylines"
+                android:background="@color/immuno_light_grey"
+                android:textColor="@color/immuno_white" />
+        </RelativeLayout>
 
+        <!--<Button-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:drawableRight="@drawable/ic_country_icon"/>-->
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -55,7 +64,6 @@
                 android:background="@drawable/ic_arrow_forward_24dp"
                 android:layout_marginRight="@dimen/md_keylines"
                 android:layout_alignParentRight="true"/>
-
         </RelativeLayout>
 
         <include layout="@layout/divider_horizonal_full"/>
@@ -63,7 +71,7 @@
         <RelativeLayout
             android:id="@+id/travel_info"
             android:layout_width="fill_parent"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:paddingTop="@dimen/md_keylines"
             android:layout_centerVertical="true"
@@ -75,7 +83,7 @@
                 android:textColor="@color/immuno_grey"
                 android:text="TRAVEL INFO"
                 android:textSize="@dimen/article_titles"
-                android:layout_marginLeft="30dp"
+                android:layout_marginTop="30dp"
                 android:layout_alignParentLeft="true"/>
 
             <ImageView
@@ -86,9 +94,75 @@
                 android:background="@drawable/ic_arrow_forward_24dp"
                 android:layout_marginRight="@dimen/md_keylines"
                 android:layout_alignParentRight="true"/>
-
         </RelativeLayout>
         <include layout="@layout/divider_horizonal_full"/>
+
+        <LinearLayout android:id="@+id/user_details_container"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Your Details"
+                android:textAppearance="@style/TextAppearance.AppCompat.Button"/>
+
+            <RelativeLayout android:id="@+id/last_dose_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Your Details"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Your Details"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout android:id="@+id/next_dose_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="September 10, 2016"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Next Dose"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Caption"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout android:id="@+id/next_appointment_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="September 12, 2015"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Next Dose"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Caption"/>
+
+                </RelativeLayout>
+
+        </LinearLayout>
 
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>
