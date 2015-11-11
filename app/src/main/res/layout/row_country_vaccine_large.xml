@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/layout_container"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/vaccine_small_row_height"
+        android:padding="@dimen/vaccine_small_row_padding">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:orientation="vertical"
+            android:layout_centerVertical="true">
+
+            <TextView android:id="@+id/vaccine_name"
+                android:text="Vaccine Name – Vaccine Medical Name"
+                android:ellipsize="end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/VaccineTitleStyle" />
+
+            <TextView
+                android:id="@+id/vaccine_country_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/vaccine_name"
+                style="@style/VaccineSubtitleStyle"
+                android:maxLines="2"
+                android:text="This vaccine is required by all travellers." />
+
+        </LinearLayout>
+
+        <ImageButton android:id="@+id/vaccine_action"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:src="@drawable/ic_protected_green_24dp"/>
+
+    </RelativeLayout>
+
+    <include layout="@layout/divider_horizonal_full"/>
+
+</RelativeLayout>

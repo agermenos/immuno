@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout android:id="@+id/country_description_section"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/immuno_grey"
+        android:paddingTop="32dp"
+        android:paddingBottom="32dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+
+        <TextView android:id="@+id/country_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Brazil has 3 required vaccines. Very long simple name, also long simple name, and simple name"
+            android:textSize="20sp"
+            android:lineSpacingMultiplier="1.1"
+            android:textColor="@color/immuno_white" />
+    </RelativeLayout>
+
+</LinearLayout>

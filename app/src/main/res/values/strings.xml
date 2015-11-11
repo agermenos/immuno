@@ -16,4 +16,6 @@
     <string name="most_relevant">Most Relevant</string>
     <string name="travel_results">Travel Results</string>
     <string name="required_vaccines">required vaccines</string>
+    <string name="title_activity_country">Country Name</string>
+    <string name="country_warning">**Most vaccines for travel need to be taken some weeks prior to travel. Please consult your doctor in advance.**</string>
 </resources>
