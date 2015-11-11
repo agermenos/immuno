@@ -13,7 +13,6 @@ import com.udacity.immuno.R;
 import com.udacity.immuno.database.DBHelper;
 import com.udacity.immuno.database.VaccineData;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import com.udacity.immuno.utils.VaccineCountrySeparator;
@@ -39,7 +38,8 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<CustomViewHolder> {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                customItemClickListener.onItemClicked(vaccineDataList.get(viewHolder.getLayoutPosition()));
+                customItemClickListener.onItemClicked(
+                        vaccineDataList.get(viewHolder.getLayoutPosition()));
             }
         });
         return viewHolder;

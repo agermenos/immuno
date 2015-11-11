@@ -31,19 +31,6 @@ public class VaccineInfoActivity extends AppCompatActivity {
         VaccineData vaccineData = getIntent().getParcelableExtra("vaccineInfo");
         long userId = getIntent().getLongExtra("userId", DBHelper.getPrimaryUserId());
 
-        //progressBar = (ProgressBar) findViewById(R.id.progress_bar);
-        //progressBar.setVisibility(View.VISIBLE);
-
-        /* No Fab button in this Activity
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-        */
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         String strCasualName = vaccineData.getCasualName();
@@ -55,13 +42,7 @@ public class VaccineInfoActivity extends AppCompatActivity {
         TextView vaccineDesc = (TextView) findViewById(R.id.vaccine_description);
         ImageView picture = (ImageView) findViewById(R.id.image);
         vaccineDesc.setText(vaccineData.getDescription());
-        if (vaccineData.getUserId()!=2000) {
-            Picasso.with(this).load(Utility.randMicrobe()).transform(new CircleTransform()).into(picture);
-        }
-        else {
-            Picasso.with(this).load(vaccineData.getLink()).transform(new CircleTransform()).into(picture);
-        }
-
+        Picasso.with(this).load(Utility.randMicrobe()).transform(new CircleTransform()).into(picture);
     }
 
     @Override

@@ -34,8 +34,10 @@ public class CountryList implements Parcelable {
         this.countries = countries;
     }
 
+    public CountryList(){
+    }
 
-    protected CountryList(Parcel in) {
+    public CountryList(Parcel in) {
         if (in.readByte() == 0x01) {
             countries = new ArrayList<Country>();
             in.readList(countries, Country.class.getClassLoader());

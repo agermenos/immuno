@@ -1,43 +1,45 @@
 package com.udacity.immuno.activities;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.animation.AlphaAnimation;
-import android.widget.RelativeLayout;
+import android.util.Log;
+import android.widget.Adapter;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.squareup.picasso.Picasso;
 import com.udacity.immuno.R;
-import com.udacity.immuno.adapters.MainActivityAdapter;
+import com.udacity.immuno.adapters.CustomViewHolder;
+import com.udacity.immuno.database.DBHelper;
+import com.udacity.immuno.database.VaccineData;
+import com.udacity.immuno.pojos.Country;
+import com.udacity.immuno.pojos.CountryList;
+import com.udacity.immuno.utils.CircleTransform;
 
-import butterknife.Bind;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.List;
+
 import butterknife.ButterKnife;
 
 public class CountryActivity extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener {
     public static final String TAG = CountryActivity.class.getSimpleName();
 
-    //private static final float PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR  = 0.8f;
-    private static final float PERCENTAGE_TO_HIDE_TITLE_DETAILS     = 0.6f;
-    private static final int ALPHA_ANIMATIONS_DURATION              = 250;
-
-    private boolean mIsTitleVisible = false;
-    private boolean mIsTitleContainerVisible = true;
-
     private Activity mActivity;
 
-    private LinearLayoutManager mLayoutManager;
-    private MainActivityAdapter mAdapter;
-
-    @Bind(R.id.recycler_view) RecyclerView mRecyclerView;
-    @Bind(R.id.header_container) RelativeLayout headerContainer;
-    @Bind(R.id.toolbar) Toolbar mToolbar;
+    private String _countryName;
+    private Country localCountry;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,98 +48,100 @@ public class CountryActivity extends AppCompatActivity implements AppBarLayout.O
 
         mActivity = this;
         ButterKnife.bind(this);
-
-        setUpToolbar();
-        setUpHeader();
-        setUpRecyclerView();
+        VaccineData vaccineData = getIntent().getParcelableExtra("vaccineInfo");
+        TextView countryName= (TextView) findViewById(R.id.country_name);
+        TextView countrySubtitle = (TextView) findViewById(R.id.country_subtitle);
+        countryName.setText(vaccineData.getCasualName());
+        countrySubtitle.setText(vaccineData.getFormalName());
+        ImageView picture = (ImageView) findViewById(R.id.image);
+        Picasso.with(this).load(vaccineData.getLink()).transform(new CircleTransform()).into(picture);
+        _countryName = vaccineData.getCasualName();
+        new AsyncHttpTask().execute(_countryName);
     }
 
-    public void setUpToolbar(){
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+    public class AsyncHttpTask extends AsyncTask<String, Void, Integer> implements CustomViewHolder.CustomViewItemClickListener{
 
-        //toolbar.setTitle(); //TODO: set title to country name
-        toolbar.setTitle("");
+        @Override
+        protected void onPreExecute() {
 
-        CollapsingToolbarLayout collapsingToolbar =
-                (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-        collapsingToolbar.setTitleEnabled(false);
-    }
+        }
 
-    public void setUpHeader(){
-        //TODO: add all values to header
-        //TODO: add country name, add number of vaccines required
-    }
+        @Override
+        protected Integer doInBackground(String... params) {
+            Integer result = 0;
+            HttpURLConnection urlConnection;
+            try {
+                URL url = new URL("http://immuno-1125.appspot.com/country/" + params[0]);
+                urlConnection = (HttpURLConnection) url.openConnection();
+                int statusCode = urlConnection.getResponseCode();
 
-    public void setUpRecyclerView(){
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-
-        mLayoutManager = new LinearLayoutManager(mActivity);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.setDescendantFocusability(ViewGroup.FOCUS_AFTER_DESCENDANTS); //for accessibility
-
-        //TODO: feed country data to the adapter
-        //mAdapter = new CountryActivityAdapter(mActivity, );
-        //mRecyclerView.setAdapter(mAdapter);
-
-    }
-
-    @Override
-    public void onOffsetChanged(AppBarLayout appBarLayout, int appBarOffset) {
-        int maxScroll = appBarLayout.getTotalScrollRange();
-        float percentage = (float) Math.abs(appBarOffset) / (float) maxScroll;
-
-        handleAlphaOnTitle(percentage);
-    }
-
-    private void handleAlphaOnTitle(float percentage) {
-        if (percentage >= PERCENTAGE_TO_HIDE_TITLE_DETAILS) {
-
-            if(mIsTitleContainerVisible) {
-                startAlphaAnimation(headerContainer, ALPHA_ANIMATIONS_DURATION, View.INVISIBLE);
-                //mToolbar.setTitle(""); //TODO: set title to country name
-                mIsTitleContainerVisible = false;
+                // 200 represents HTTP OK
+                if (statusCode == 200) { //if previous call was successful
+                    BufferedReader r = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+                    StringBuilder response = new StringBuilder();
+                    String line;
+                    while ((line = r.readLine()) != null) {
+                        response.append(line);
+                    }
+                    parseResult(response.toString());
+                    result = 1; // Successful
+                } else {
+                    result = 0; //"Failed to fetch data!";
+                }
+            } catch (Exception e) {
+                Log.d(TAG, e.getLocalizedMessage());
             }
+            return result; //"Failed to fetch data!";
+        }
 
-        } else {
+        @Override
+        protected void onPostExecute(Integer result) {
+            if (result == 1) {
+                List<String> vaccineList = localCountry.getAllTravelers();
+                vaccineList.addAll(localCountry.getMostTravelers());
+                vaccineList.addAll(localCountry.getSomeTravelers());
+                ListView mainListView = (ListView) findViewById( R.id.content_country );
+                ListAdapter listAdapter = new ArrayAdapter<>(getApplicationContext(), R.layout.row_vaccine_simple_item, vaccineList);
+                mainListView.setAdapter(listAdapter);
+            } else {
+                Toast.makeText(getApplicationContext(), "Failed to fetch data!", Toast.LENGTH_SHORT).show();
+            }
+        }
 
-            if (!mIsTitleContainerVisible) {
-                startAlphaAnimation(headerContainer, ALPHA_ANIMATIONS_DURATION, View.VISIBLE);
-                mToolbar.setTitle("");
-                mIsTitleContainerVisible = true;
+        @Override
+        public void onItemClicked(VaccineData vaccineData) {
+            //on selection of Item
+            Intent intent;
+            if (vaccineData.getUserId()!=2000) {
+                intent = new Intent(getApplicationContext(), VaccineInfoActivity.class);
+            }
+            else {
+                intent = new Intent(getApplicationContext(), CountryActivity.class);
+            }
+            Log.d(TAG, "Vaccine Selected: " + vaccineData.getCasualName());
+            intent.putExtra("vaccineInfo", vaccineData);
+            intent.putExtra("userId", DBHelper.getPrimaryUserId());
+            startActivity(intent);
+        }
+    }
 
+    private void parseResult(String result) {
+        CountryList countryList = new CountryList();
+        countryList = new Gson().fromJson(result, CountryList.class);
+        for (Country country : countryList.getCountries()) {
+            try {
+                if (country.getCountryName().equalsIgnoreCase(_countryName)) {
+                    localCountry=country;
+                    break;
+                }
+            } catch (Exception e) {
+                Log.e(TAG, e.getMessage());
             }
         }
     }
 
-//    private void handleToolbarTitleVisibility(float percentage) {
-//        if (percentage >= PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR) {
-//
-//            if(!mIsTitleVisible) {
-//                startAlphaAnimation(toolbarTitle, ALPHA_ANIMATIONS_DURATION, View.VISIBLE);
-//                mIsTitleVisible = true;
-//            }
-//
-//        } else {
-//
-//            if (mIsTitleVisible) {
-//                startAlphaAnimation(toolbarTitle, ALPHA_ANIMATIONS_DURATION, View.INVISIBLE);
-//                mIsTitleVisible = false;
-//            }
-//        }
-//    }
+    @Override
+    public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
 
-    public static void startAlphaAnimation (View v, long duration, int visibility) {
-        AlphaAnimation alphaAnimation = (visibility == View.VISIBLE)
-                ? new AlphaAnimation(0f, 1f)
-                : new AlphaAnimation(1f, 0f);
-
-        alphaAnimation.setDuration(duration);
-        alphaAnimation.setFillAfter(true);
-        v.startAnimation(alphaAnimation);
     }
-
 }

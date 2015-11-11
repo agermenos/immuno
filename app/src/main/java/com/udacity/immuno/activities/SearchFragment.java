@@ -152,7 +152,13 @@ public class SearchFragment extends Fragment {
         @Override
         public void onItemClicked(VaccineData vaccineData) {
             //on selection of Item
-            Intent intent = new Intent(getActivity(), VaccineInfoActivity.class);
+            Intent intent;
+            if (vaccineData.getUserId()!=2000) {
+                intent = new Intent(getActivity(), VaccineInfoActivity.class);
+            }
+            else {
+                intent = new Intent(getActivity(), CountryActivity.class);
+            }
             Log.d(TAG, "Vaccine Selected: " + vaccineData.getCasualName());
             intent.putExtra("vaccineInfo", vaccineData);
             intent.putExtra("userId", DBHelper.getPrimaryUserId());
