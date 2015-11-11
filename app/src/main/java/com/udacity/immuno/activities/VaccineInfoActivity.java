@@ -2,9 +2,12 @@ package com.udacity.immuno.activities;
 
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.udacity.immuno.R;
 import com.udacity.immuno.database.DBHelper;
@@ -41,6 +44,19 @@ public class VaccineInfoActivity extends AppCompatActivity {
         CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         collapsingToolbar.setTitle(vaccineData.getCasualName());
 
+        TextView vaccineDesc = (TextView) findViewById(R.id.vaccine_description);
+        vaccineDesc.setText(vaccineData.getDescription());
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()){
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
     /*
     public class AsyncHttpTask extends AsyncTask<String, Void, Integer> {
