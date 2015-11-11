@@ -6,20 +6,19 @@ import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.udacity.immuno.R;
+import com.udacity.immuno.Utility;
 import com.udacity.immuno.database.DBHelper;
 import com.udacity.immuno.database.VaccineData;
-import com.udacity.immuno.Utility;
 import com.udacity.immuno.utils.CircleTransform;
 
-public class VaccineInfoActivity extends AppCompatActivity {
-
-    private ProgressBar progressBar;
+public class VaccineInfoActivity extends AppCompatActivity implements View.OnClickListener {
+    private VaccineData mVaccineData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +27,7 @@ public class VaccineInfoActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        VaccineData vaccineData = getIntent().getParcelableExtra("vaccineInfo");
+        mVaccineData = getIntent().getParcelableExtra("vaccineInfo");
         long userId = getIntent().getLongExtra("userId", DBHelper.getPrimaryUserId());
 
         //progressBar = (ProgressBar) findViewById(R.id.progress_bar);
@@ -46,22 +45,20 @@ public class VaccineInfoActivity extends AppCompatActivity {
         */
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-        String strCasualName = vaccineData.getCasualName();
+        String strCasualName = mVaccineData.getCasualName();
         if(strCasualName == null){
-            strCasualName = vaccineData.getFormalName();
+            strCasualName = mVaccineData.getFormalName();
         }
         collapsingToolbar.setTitle(strCasualName);
-
         TextView vaccineDesc = (TextView) findViewById(R.id.vaccine_description);
         ImageView picture = (ImageView) findViewById(R.id.image);
-        vaccineDesc.setText(vaccineData.getDescription());
-        if (vaccineData.getUserId()!=2000) {
+        vaccineDesc.setText(mVaccineData.getDescription());
+        if (mVaccineData.getUserId()!=2000) {
             Picasso.with(this).load(Utility.randMicrobe()).transform(new CircleTransform()).into(picture);
         }
         else {
-            Picasso.with(this).load(vaccineData.getLink()).transform(new CircleTransform()).into(picture);
+            Picasso.with(this).load(mVaccineData.getLink()).transform(new CircleTransform()).into(picture);
         }
-
     }
 
     @Override
@@ -72,62 +69,21 @@ public class VaccineInfoActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+
     }
-    /*
-    public class AsyncHttpTask extends AsyncTask<String, Void, Integer> {
 
-        @Override
-        protected void onPreExecute() {
-            progressBar.setIndeterminate(true);
+    @Override
+    public void onClick(View v) {
+        if(v.getId()==R.id.btn_add_calendar){
+            //add to calendar as a calendar notification
+        }else if(v.getId() == R.id.btn_add_reminder){
+            //add to calendar using API as just a reminder
+        }else if(v.getId() == R.id.btn_save_to_local) {
+            //add to local save
+        }else if(v.getId() == R.id.btn_appt){
+            //call for appt
         }
 
-        @Override
-        protected Integer doInBackground(String... params) {
-            Integer result = 0;
-            HttpURLConnection urlConnection;
-            try {
-                if (params[0]!=null && !"empty".equals(params[0])) {
-                    URL url = new URL(params[0]);
-                    urlConnection = (HttpURLConnection) url.openConnection();
-                    int statusCode = urlConnection.getResponseCode();
-
-                    // 200 represents HTTP OK
-                    if (statusCode == 200) {
-                        BufferedReader r = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-                        StringBuilder response = new StringBuilder();
-                        String line;
-                        while ((line = r.readLine()) != null) {
-                            response.append(line);
-                        }
-                        parseResult(response.toString());
-                        result = 1; // Successful
-                    } else {
-                        result = 0; //"Failed to fetch data!";
-                    }
-                }
-                else {
-                    parseResult(new Dummy().getData());
-                    result=1;
-                }
-            } catch (Exception e) {
-                Log.d(TAG, e.getLocalizedMessage());
-            }
-            return result; //"Failed to fetch data!";
-        }
-
-        @Override
-        protected void onPostExecute(Integer result) {
-            // Download complete. Let us update UI
-            progressBar.setVisibility(View.GONE);
-
-            if (result == 1) {
-                adapter = new RecycleViewAdapter(getContext(), vaccineDataList);
-                mRecyclerView.setAdapter(adapter);
-            } else {
-                Toast.makeText(getActivity(), "Failed to fetch data!", Toast.LENGTH_SHORT).show();
-            }
-        }
+        
     }
-    */
-
 }

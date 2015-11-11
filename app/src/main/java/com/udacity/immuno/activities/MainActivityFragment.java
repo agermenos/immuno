@@ -63,7 +63,7 @@ public class MainActivityFragment extends Fragment {
         List<VaccineData> vaccineDataList = DBHelper.getVaccineForUser(ui.getId());
 
         //TODO: create adapter
-//        mAdapter  = new MainActivityAdapter(getActivity(), vaccineDataList);
+        mAdapter  = new MainActivityAdapter(getActivity(), vaccineDataList);
 //        mRecyclerView.setAdapter(mAdapter);
 
         mRecyclerView.setDescendantFocusability(ViewGroup.FOCUS_AFTER_DESCENDANTS); //for accessibility

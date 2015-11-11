@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.udacity.immuno.R;
+import com.udacity.immuno.database.DBHelper;
 import com.udacity.immuno.database.VaccineData;
 
 import java.util.ArrayList;
@@ -38,9 +39,28 @@ public class MainActivityAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     public MainActivityAdapter(Context context, List<VaccineData> vaccineDataList) {
         this.vaccineDataList = vaccineDataList;
+        loadList(vaccineDataList);
         this.mContext = context;
-
         setViews();
+    }
+
+    private void loadList(List<VaccineData> vaccineDataList) {
+        needsAttentionVaccines = new ArrayList<>();
+        upcomingVaccines = new ArrayList<>();
+        pastVaccines = new ArrayList<>();
+        for (VaccineData vd:vaccineDataList){
+            switch (vd.getStatus()) {
+                case DBHelper.STATUS_TO_BE_SCHEDULED:
+                    needsAttentionVaccines.add(vd);
+                    break;
+                case DBHelper.STATUS_SCHEDULED:
+                    upcomingVaccines.add(vd);
+                    break;
+                default:
+                    pastVaccines.add(vd);
+                    break;
+            }
+        }
     }
 
     public void setViews(){
