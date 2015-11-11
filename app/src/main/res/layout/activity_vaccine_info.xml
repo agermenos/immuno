@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:id="@+id/detail_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -79,5 +80,77 @@
 
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
+
+    <!--
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/ic_search_24dp" />
+    -->
+
     <include layout="@layout/content_vaccine_info" />
+
+    <com.getbase.floatingactionbutton.FloatingActionsMenu
+        app:layout_anchorGravity="bottom|right|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:clickable="true"
+        android:id="@+id/multiple_actions_down"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        fab:fab_addButtonColorNormal="@color/immuno_white"
+        fab:fab_addButtonColorPressed="@color/immuno_white_pressed"
+        fab:fab_addButtonSize="normal"
+        fab:fab_addButtonPlusIconColor="@color/immuno_grey"
+        fab:fab_expandDirection="up"
+        fab:fab_labelStyle="@style/menu_labels_style"
+        android:layout_marginRight="16dp"
+        app:layout_anchor="@id/appbar">
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btn_appt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_colorNormal="@color/immuno_white"
+            fab:fab_colorPressed="@color/immuno_white_pressed"
+            fab:fab_title="@string/call_for_appt"
+            fab:fab_icon="@drawable/ic_phone_24dp"
+            app:fab_size="mini"/>
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btn_add_reminder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_colorNormal="@color/immuno_white"
+            fab:fab_colorPressed="@color/immuno_white_pressed"
+            fab:fab_title="@string/add_reminder"
+            fab:fab_icon="@drawable/ic_reminder_outline_24dp"
+            app:fab_size="mini"/>
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btn_add_calendar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_colorNormal="@color/immuno_white"
+            fab:fab_colorPressed="@color/immuno_white_pressed"
+            fab:fab_title="@string/schedule_date"
+            fab:fab_icon="@drawable/ic_event_24dp"
+            app:fab_size="mini"/>
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btn_save_to_local"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_colorNormal="@color/immuno_white"
+            fab:fab_colorPressed="@color/immuno_white_pressed"
+            fab:fab_title="@string/add_to_my_list"
+            fab:fab_icon="@drawable/ic_add_24dp"
+            app:fab_size="mini"/>
+
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>
+
 </android.support.design.widget.CoordinatorLayout>

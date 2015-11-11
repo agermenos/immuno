@@ -48,4 +48,8 @@
         <item name="android:background">@drawable/ic_vaccine_past_icon_background</item>
     </style>
 
+    <style name="menu_labels_style">
+        <item name="android:textColor">@color/immuno_light_grey</item>
+    </style>
+
 </resources>

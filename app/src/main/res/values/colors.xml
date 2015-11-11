@@ -12,4 +12,5 @@
     <color name="immuno_white">#FFFFFF</color>
     <color name="immuno_grey">#525252</color>
     <color name="immuno_light_grey">#B2B2B2</color>
+    <color name="immuno_white_pressed">#f1f1f1</color>
 </resources>

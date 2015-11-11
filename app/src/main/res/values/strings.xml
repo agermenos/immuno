@@ -15,4 +15,8 @@
     <string name="detail_location">1550 Plymouth Street, Mountain View, CA</string>
     <string name="most_relevant">Most Relevant</string>
     <string name="travel_results">Travel Results</string>
+    <string name="call_for_appt">Call for Appointment</string>
+    <string name="add_reminder">Reminder for later</string>
+    <string name="schedule_date">Schedule an appointment</string>
+    <string name="add_to_my_list">Add to my list</string>
 </resources>
