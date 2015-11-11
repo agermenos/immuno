@@ -130,12 +130,22 @@ public class MainActivityAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             v.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    vaccineData = new VaccineData();
-                    vaccineData.setCasualName(vaccineName.getText().toString());
-                    vaccineData.setFormalName(vaccineName.getText().toString());
-                    vaccineData.setDescription("A vaccine is a biological preparation that provides active acquired immunity to a particular disease. A vaccine typically contains an agent that resembles a disease-causing micro-organism and is often made from weakened or killed forms of the microbe, its toxins or one of its surface proteins.");
-                    vaccineData.setStatus(DBHelper.STATUS_COMPLETED);
-                    vaccineData.setScheduleDate(new Date());
+
+                    List<VaccineData> vaccineDataList = DBHelper.searchVaccinesByName(vaccineName.getText().toString());
+                    if (vaccineDataList!=null && vaccineDataList.size()>0) {
+                        vaccineData = vaccineDataList.get(0);
+                        if (vaccineData.getCasualName()=="None") {
+                            vaccineData.setCasualName(vaccineData.getFormalName());
+                        }
+                    }
+                    else {
+                        vaccineData.setCasualName(vaccineName.getText().toString());
+                        vaccineData.setFormalName(vaccineName.getText().toString());
+                        vaccineData.setDescription("A vaccine is a biological preparation that provides active acquired immunity to a particular disease. A vaccine typically contains an agent that resembles a disease-causing micro-organism and is often made from weakened or killed forms of the microbe, its toxins or one of its surface proteins.");
+                        vaccineData.setStatus(DBHelper.STATUS_COMPLETED);
+                        vaccineData.setScheduleDate(new Date());
+                        vaccineData.setLink("http://wwwnc.cdc.gov/travel/diseases/routine");
+                    }
                     Intent intent;
                     intent = new Intent(mContext, VaccineInfoActivity.class);
                     intent.putExtra("vaccineInfo", vaccineData);
