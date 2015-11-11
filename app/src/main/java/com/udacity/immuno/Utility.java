@@ -15,8 +15,13 @@ public class Utility {
             "http://i.kinja-img.com/gawker-media/image/upload/s--b0yZa7lA--/17pr7zlwzt4awjpg.jpg",
             "https://wattsupwiththat.files.wordpress.com/2011/02/bacteria1.jpg",
             "http://www.iflscience.com/sites/www.iflscience.com/files/styles/ifls_large/public/blog/%5Bnid%5D/microbes.jpg?itok=3dWnQYJ8"));
+
     public static String randMicrobe() {
         Random r = new Random();
         return MICROBE_IMAGES.get(r.nextInt(MICROBE_IMAGES.size()));
+    }
+
+    public static String capitalize(final String line) {
+        return Character.toUpperCase(line.charAt(0)) + line.substring(1);
     }
 }

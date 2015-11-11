@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.Adapter;
 import android.widget.ArrayAdapter;
@@ -18,6 +20,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 import com.udacity.immuno.R;
+import com.udacity.immuno.Utility;
 import com.udacity.immuno.adapters.CustomViewHolder;
 import com.udacity.immuno.database.DBHelper;
 import com.udacity.immuno.database.VaccineData;
@@ -45,13 +48,25 @@ public class CountryActivity extends AppCompatActivity implements AppBarLayout.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_country);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
         mActivity = this;
         ButterKnife.bind(this);
         VaccineData vaccineData = getIntent().getParcelableExtra("vaccineInfo");
-        TextView countryName= (TextView) findViewById(R.id.country_name);
-        TextView countrySubtitle = (TextView) findViewById(R.id.country_subtitle);
-        countryName.setText(vaccineData.getCasualName());
-        countrySubtitle.setText(vaccineData.getFormalName());
+        //TextView countryName= (TextView) findViewById(R.id.country_name);
+        //TextView countrySubtitle = (TextView) findViewById(R.id.country_subtitle);
+        //countryName.setText(vaccineData.getCasualName());
+
+        CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        collapsingToolbar.setTitle(Utility.capitalize(vaccineData.getCasualName()));
+        toolbar.setSubtitle(vaccineData.getFormalName());
+
+
+        //countrySubtitle.setText(vaccineData.getFormalName());
         ImageView picture = (ImageView) findViewById(R.id.image);
         Picasso.with(this).load(vaccineData.getLink()).transform(new CircleTransform()).into(picture);
         _countryName = vaccineData.getCasualName();

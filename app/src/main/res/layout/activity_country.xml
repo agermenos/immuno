@@ -68,17 +68,12 @@
                     android:orientation="vertical"
                     android:gravity="bottom">
 
-                    <TextView android:id="@+id/country_name"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Country Name"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Display1"/>
 
                     <TextView
                         android:id="@+id/country_subtitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Number of Required Vaccines"
+                        android:text="5 required vaccines"
                         android:textSize="@dimen/article_titles" />
 
                 </LinearLayout>

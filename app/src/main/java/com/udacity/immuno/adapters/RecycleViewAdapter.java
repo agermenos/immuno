@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.udacity.immuno.R;
+import com.udacity.immuno.Utility;
 import com.udacity.immuno.database.DBHelper;
 import com.udacity.immuno.database.VaccineData;
 
@@ -80,9 +81,9 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<CustomViewHolder> {
             customViewHolder.ibVaccineIcon.setImageResource(R.drawable.ic_country_icon);
             customViewHolder.ibVaccineAction.setVisibility(View.INVISIBLE);
         }
-        customViewHolder.tvName.setText(!vaccineData.getCasualName().equals("None")?
-                vaccineData.getCasualName():
-                vaccineData.getFormalName());
+        customViewHolder.tvName.setText(!vaccineData.getCasualName().equals("None") ?
+                Utility.capitalize(vaccineData.getCasualName()) :
+                Utility.capitalize(vaccineData.getFormalName()));
         customViewHolder.tvFormalName.setText(vaccineData.getFormalName());
     }
 
