@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:showIn="@layout/activity_vaccine_info" android:layout_width="match_parent"
+    tools:showIn="@layout/activity_vaccine_info"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.udacity.immuno.activities.VaccineInfoActivity">
 
@@ -65,7 +66,8 @@
             android:layout_height="40dp"
             android:layout_alignParentLeft="true"
             android:paddingTop="@dimen/md_keylines"
-            android:layout_centerVertical="true">
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="10sp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -73,13 +75,12 @@
                 android:textColor="@color/immuno_grey"
                 android:text="TRAVEL INFO"
                 android:textSize="@dimen/article_titles"
-                android:layout_marginBottom="@dimen/md_keylines"
                 android:layout_marginLeft="30dp"
                 android:layout_alignParentLeft="true"/>
 
             <ImageView
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:gravity="right"
                 android:background="@drawable/ic_arrow_forward_24dp"
@@ -87,7 +88,6 @@
                 android:layout_alignParentRight="true"/>
 
         </RelativeLayout>
-
         <include layout="@layout/divider_horizonal_full"/>
 
     </LinearLayout>
