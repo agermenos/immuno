@@ -26,11 +26,16 @@ public class MainActivityAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private List<Integer> views;
     private Context mContext;
 
+    private List<VaccineData> needsAttentionVaccines;
+    private List<VaccineData> upcomingVaccines;
+    private List<VaccineData> pastVaccines;
+
     private static final int TYPE_HEADER_NEEDS_ATTENTION = 0;
     private static final int TYPE_HEADER_UPCOMING = 1;
     private static final int TYPE_HEADER_PAST_VACCINES = 2;
     private static final int TYPE_BUTTON_MORE = 3;
     private static final int TYPE_VACCINE = 4;
+
 
 
     public MainActivityAdapter(Context context, List<VaccineData> vaccineDataList) {
