@@ -133,6 +133,7 @@ public class MainActivityAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     vaccineData = new VaccineData();
                     vaccineData.setCasualName(vaccineName.getText().toString());
                     vaccineData.setFormalName(vaccineName.getText().toString());
+                    vaccineData.setDescription("A vaccine is a biological preparation that provides active acquired immunity to a particular disease. A vaccine typically contains an agent that resembles a disease-causing micro-organism and is often made from weakened or killed forms of the microbe, its toxins or one of its surface proteins.");
                     vaccineData.setStatus(DBHelper.STATUS_COMPLETED);
                     vaccineData.setScheduleDate(new Date());
                     Intent intent;
