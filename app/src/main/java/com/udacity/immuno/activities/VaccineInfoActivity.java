@@ -6,14 +6,15 @@ import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.udacity.immuno.R;
+import com.udacity.immuno.Utility;
 import com.udacity.immuno.database.DBHelper;
 import com.udacity.immuno.database.VaccineData;
-import com.udacity.immuno.Utility;
 import com.udacity.immuno.utils.CircleTransform;
 
 public class VaccineInfoActivity extends AppCompatActivity implements View.OnClickListener {
@@ -44,21 +45,20 @@ public class VaccineInfoActivity extends AppCompatActivity implements View.OnCli
         */
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-        String strCasualName = vaccineData.getCasualName();
+        String strCasualName = mVaccineData.getCasualName();
         if(strCasualName == null){
-            strCasualName = vaccineData.getFormalName();
+            strCasualName = mVaccineData.getFormalName();
         }
         collapsingToolbar.setTitle(strCasualName);
         TextView vaccineDesc = (TextView) findViewById(R.id.vaccine_description);
         ImageView picture = (ImageView) findViewById(R.id.image);
-        vaccineDesc.setText(vaccineData.getDescription());
-        if (vaccineData.getUserId()!=2000) {
+        vaccineDesc.setText(mVaccineData.getDescription());
+        if (mVaccineData.getUserId()!=2000) {
             Picasso.with(this).load(Utility.randMicrobe()).transform(new CircleTransform()).into(picture);
         }
         else {
-            Picasso.with(this).load(vaccineData.getLink()).transform(new CircleTransform()).into(picture);
+            Picasso.with(this).load(mVaccineData.getLink()).transform(new CircleTransform()).into(picture);
         }
-
     }
 
     @Override
