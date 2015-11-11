@@ -98,7 +98,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Last Dose"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginLeft="30dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                 android:layout_below="@id/last_dose_date"
@@ -118,7 +118,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Next Dose"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginLeft="30dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                 android:layout_below="@+id/next_dose_date"/>
