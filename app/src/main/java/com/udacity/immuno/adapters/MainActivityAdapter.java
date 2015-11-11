@@ -1,7 +1,9 @@
 package com.udacity.immuno.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.udacity.immuno.R;
+import com.udacity.immuno.activities.CountryActivity;
+import com.udacity.immuno.activities.VaccineInfoActivity;
 import com.udacity.immuno.database.DBHelper;
 import com.udacity.immuno.database.VaccineData;
 
@@ -27,6 +31,7 @@ public class MainActivityAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private List<VaccineData> vaccineDataList;
     private List<Integer> views;
     private Context mContext;
+    VaccineData vaccineData;
 
     private List<VaccineData> needsAttentionVaccines;
     private List<VaccineData> upcomingVaccines;
@@ -105,7 +110,7 @@ public class MainActivityAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     } //setViews
 
-    public static class HeaderViewHolder extends RecyclerView.ViewHolder {
+    public class HeaderViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.header_title) TextView headerTitle;
 
         public HeaderViewHolder(View v) {
@@ -114,7 +119,7 @@ public class MainActivityAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
     }
 
-    public static class VaccineViewHolder extends RecyclerView.ViewHolder {
+    public class VaccineViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.vaccine_icon) ImageView vaccineIcon;
         @Bind(R.id.vaccine_name) TextView vaccineName;
         @Bind(R.id.vaccine_formal_name) TextView vaccineStatusLabel;
@@ -122,6 +127,21 @@ public class MainActivityAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         public VaccineViewHolder(View v) {
             super(v);
             ButterKnife.bind(this, v);
+            v.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    vaccineData = new VaccineData();
+                    vaccineData.setCasualName(vaccineName.getText().toString());
+                    vaccineData.setFormalName(vaccineName.getText().toString());
+                    vaccineData.setStatus(DBHelper.STATUS_COMPLETED);
+                    vaccineData.setScheduleDate(new Date());
+                    Intent intent;
+                    intent = new Intent(mContext, VaccineInfoActivity.class);
+                    intent.putExtra("vaccineInfo", vaccineData);
+                    intent.putExtra("userId", DBHelper.getPrimaryUserId());
+                    mContext.startActivity(intent);
+                }
+            });
         }
     }
 
@@ -231,6 +251,7 @@ public class MainActivityAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
                 break;
         }
+
     }
 
     @Override
