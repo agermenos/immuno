@@ -26,6 +26,11 @@ public class DBHelper {
         return DEFAULT_USER_ID;
     }
 
+    public static void addVaccineForUser(VaccineData vaccineData, long userId) {
+        vaccineData.setUserId(userId);
+        vaccineData.save();
+    }
+
     @IntDef({STATUS_GOOD_FOR_LIFE, STATUS_COMPLETED, STATUS_SCHEDULED, STATUS_TO_BE_SCHEDULED})
     @Retention(RetentionPolicy.SOURCE)
     public @interface VaccineStatus {}
@@ -54,6 +59,11 @@ public class DBHelper {
     public static List<VaccineData> getVaccineForUser(long userId){
        List<VaccineData> list = new Select().from(VaccineData.class).where("user_id = ?", userId).execute();
        return list;
+    }
+
+    public static List<VaccineData> getVaccineByAPIId(long userId){
+        List<VaccineData> list = new Select().from(VaccineData.class).where("vaccine_api_id = ?", userId).execute();
+        return list;
     }
 
     public static VaccineData addVaccineForUser(String casualName, String formalName, String vaccineApiId, Date scheduledDate, @VaccineStatus int vaccineStatus, long userId, String routine){
