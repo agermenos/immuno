@@ -51,6 +51,13 @@ public class DBHelper {
         return null;
     }
 
+    public static VaccineData getVaccineByAPIId(String apiId){
+        List<VaccineData> list = new Select().from(VaccineData.class).where("vaccine_api_id = ?", apiId).execute();
+        if (list!=null && list.size()!=0)
+            return list.get(0);
+        else return null;
+    }
+
     public static List<VaccineData> getVaccineForUser(long userId){
        List<VaccineData> list = new Select().from(VaccineData.class).where("user_id = ?", userId).execute();
        return list;

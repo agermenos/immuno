@@ -51,10 +51,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<CustomViewHolder> {
         VaccineData vaccineData = vaccineDataList.get(i);
         if (vaccineData.getUserId()<2000) {
             customViewHolder.ibVaccineIcon.setImageResource(R.drawable.ic_vaccine_regular);
-            VaccineData myVaccine = null;
-            if (vaccineData.getId()!=null) {
-                myVaccine = DBHelper.getVaccine(vaccineData.getId());
-            }
+            VaccineData myVaccine = DBHelper.getVaccineByAPIId(vaccineData.getVaccineApiId());
             if (myVaccine==null) {
                 customViewHolder.ibVaccineAction.setImageResource(R.drawable.ic_add_circle_outline_24dp);
             }
