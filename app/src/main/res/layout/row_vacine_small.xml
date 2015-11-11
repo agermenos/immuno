@@ -42,7 +42,7 @@
                 android:text="Vaccine Name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/VaccineTitleStyle" />
+                style="@style/VaccineSubtitleStyle" />
 
             <TextView android:id="@+id/vaccine_formal_name"
                 android:text="Vaccine Medical Name"

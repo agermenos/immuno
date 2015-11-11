@@ -26,7 +26,8 @@
             android:paddingTop="@dimen/md_keylines"
             android:paddingBottom="@dimen/md_keylines"
             android:background="@color/immuno_light_grey"
-            android:textColor="@color/immuno_white"/>
+            android:textColor="@color/immuno_white"
+            android:id="@+id/vaccine_description"/>
 
         <RelativeLayout
             android:id="@+id/more_info"
@@ -78,7 +79,7 @@
 
             <ImageView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_gravity="right"
                 android:gravity="right"
                 android:background="@drawable/ic_arrow_forward_24dp"

@@ -10,8 +10,10 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.udacity.immuno.R;
+import com.udacity.immuno.database.DBHelper;
 import com.udacity.immuno.database.VaccineData;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -25,25 +27,46 @@ public class MainActivityAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private List<Integer> views;
     private Context mContext;
 
+    private List<VaccineData> needsAttentionVaccines;
+    private List<VaccineData> upcomingVaccines;
+    private List<VaccineData> pastVaccines;
+
     private static final int TYPE_HEADER_NEEDS_ATTENTION = 0;
     private static final int TYPE_HEADER_UPCOMING = 1;
     private static final int TYPE_HEADER_PAST_VACCINES = 2;
     private static final int TYPE_BUTTON_MORE = 3;
     private static final int TYPE_VACCINE = 4;
 
-
     public MainActivityAdapter(Context context, List<VaccineData> vaccineDataList) {
         this.vaccineDataList = vaccineDataList;
+        loadList(vaccineDataList);
         this.mContext = context;
-
         setViews();
+    }
+
+    private void loadList(List<VaccineData> vaccineDataList) {
+        needsAttentionVaccines = new ArrayList<>();
+        upcomingVaccines = new ArrayList<>();
+        pastVaccines = new ArrayList<>();
+        for (VaccineData vd:vaccineDataList){
+            switch (vd.getStatus()) {
+                case DBHelper.STATUS_TO_BE_SCHEDULED:
+                    needsAttentionVaccines.add(vd);
+                    break;
+                case DBHelper.STATUS_SCHEDULED:
+                    upcomingVaccines.add(vd);
+                    break;
+                default:
+                    pastVaccines.add(vd);
+                    break;
+            }
+        }
     }
 
     public void setViews(){
 
+        views = new ArrayList<>();
         views.add(TYPE_HEADER_NEEDS_ATTENTION);
-
-
 
         //TODO: check if there are need attention items
             //if yes: views.add(TYPE_HEADER_NEEDS_ATTENTION);

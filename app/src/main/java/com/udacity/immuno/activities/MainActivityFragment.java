@@ -12,6 +12,11 @@ import android.view.ViewGroup;
 
 import com.udacity.immuno.R;
 import com.udacity.immuno.adapters.MainActivityAdapter;
+import com.udacity.immuno.database.DBHelper;
+import com.udacity.immuno.database.UserInfo;
+import com.udacity.immuno.database.VaccineData;
+
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -54,9 +59,12 @@ public class MainActivityFragment extends Fragment {
         mLayoutManager = new LinearLayoutManager(mContext);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
+        UserInfo ui = DBHelper.getPrimaryUser();
+        List<VaccineData> vaccineDataList = DBHelper.getVaccineForUser(ui.getId());
+
         //TODO: create adapter
-        //mAdapter  = new MainActivityAdapter(getActivity(), );
-        //mRecyclerView.setAdapter(MainActivityAdapter);
+        mAdapter  = new MainActivityAdapter(getActivity(), vaccineDataList);
+//        mRecyclerView.setAdapter(mAdapter);
 
         mRecyclerView.setDescendantFocusability(ViewGroup.FOCUS_AFTER_DESCENDANTS); //for accessibility
     }

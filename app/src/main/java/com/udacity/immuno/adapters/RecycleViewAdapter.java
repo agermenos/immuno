@@ -13,7 +13,10 @@ import com.udacity.immuno.R;
 import com.udacity.immuno.database.DBHelper;
 import com.udacity.immuno.database.VaccineData;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import com.udacity.immuno.utils.VaccineCountrySeparator;
 
 public class RecycleViewAdapter extends RecyclerView.Adapter<CustomViewHolder> {
     private List<VaccineData> vaccineDataList;
@@ -21,6 +24,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<CustomViewHolder> {
     private CustomViewHolder.CustomViewItemClickListener customItemClickListener;
 
     public RecycleViewAdapter(Context context, List<VaccineData> vaccineDataList, CustomViewHolder.CustomViewItemClickListener customItemClickListener) {
+        Collections.sort(vaccineDataList, new VaccineCountrySeparator());
         this.vaccineDataList = vaccineDataList;
         this.mContext = context;
         this.customItemClickListener = customItemClickListener;
@@ -44,39 +48,41 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<CustomViewHolder> {
     @Override
     public void onBindViewHolder(CustomViewHolder customViewHolder, int i) {
         VaccineData vaccineData = vaccineDataList.get(i);
-        if (vaccineData.getUserId()!=0) {
+        if (vaccineData.getUserId()<2000) {
             customViewHolder.ibVaccineIcon.setImageResource(R.drawable.ic_vaccine_regular);
-            switch (vaccineData.getStatus()) {
-                case DBHelper.STATUS_COMPLETED:
-                    customViewHolder.ibVaccineAction.setColorFilter(R.drawable.ic_protected_green_24dp);
-                    break;
-                case DBHelper.STATUS_GOOD_FOR_LIFE:
-                    customViewHolder.ibVaccineAction.setImageResource(R.drawable.ic_protected_grey_24dp);
-                    break;
-                case DBHelper.STATUS_SCHEDULED:
-                    customViewHolder.ibVaccineAction.setImageResource(R.drawable.ic_protected_yellow_24dp);
-                    break;
-                case DBHelper.STATUS_TO_BE_SCHEDULED:
-                    customViewHolder.ibVaccineAction.setImageResource(R.drawable.ic_protected_yellow_24dp);
+            VaccineData myVaccine = null;
+            if (vaccineData.getId()!=null) {
+                myVaccine = DBHelper.getVaccine(vaccineData.getId());
+            }
+            if (myVaccine==null) {
+                customViewHolder.ibVaccineAction.setImageResource(R.drawable.ic_add_circle_outline_24dp);
+            }
+            else {
+                switch (vaccineData.getStatus()) {
+                    case DBHelper.STATUS_COMPLETED:
+                        customViewHolder.ibVaccineAction.setColorFilter(R.drawable.ic_protected_green_24dp);
+                        break;
+                    case DBHelper.STATUS_GOOD_FOR_LIFE:
+                        customViewHolder.ibVaccineAction.setImageResource(R.drawable.ic_protected_grey_24dp);
+                        break;
+                    case DBHelper.STATUS_SCHEDULED:
+                        customViewHolder.ibVaccineAction.setImageResource(R.drawable.ic_protected_yellow_24dp);
+                        break;
+                    case DBHelper.STATUS_TO_BE_SCHEDULED:
+                        customViewHolder.ibVaccineAction.setImageResource(R.drawable.ic_protected_yellow_24dp);
+                        break;
+                    default:
+                        customViewHolder.ibVaccineAction.setImageResource(R.drawable.ic_protected_red_24dp);
+                }
             }
         }
         else {
-            customViewHolder.ibVaccineIcon.setImageResource(R.drawable.ic_vaccine_travel);
-            switch (vaccineData.getStatus()) {
-                case DBHelper.STATUS_COMPLETED:
-                    customViewHolder.ibVaccineAction.setColorFilter(R.drawable.ic_add_circle_outline_24dp);
-                    break;
-                case DBHelper.STATUS_GOOD_FOR_LIFE:
-                    customViewHolder.ibVaccineAction.setImageResource(R.drawable.ic_add_circle_outline_24dp);
-                    break;
-                case DBHelper.STATUS_SCHEDULED:
-                    customViewHolder.ibVaccineAction.setImageResource(R.drawable.ic_add_circle_outline_24dp);
-                    break;
-                case DBHelper.STATUS_TO_BE_SCHEDULED:
-                    customViewHolder.ibVaccineAction.setImageResource(R.drawable.ic_add_circle_outline_24dp);
-            }
+            customViewHolder.ibVaccineIcon.setImageResource(R.drawable.ic_country_icon);
+            customViewHolder.ibVaccineAction.setVisibility(View.INVISIBLE);
         }
-        customViewHolder.tvName.setText(vaccineData.getCasualName());
+        customViewHolder.tvName.setText(!vaccineData.getCasualName().equals("None")?
+                vaccineData.getCasualName():
+                vaccineData.getFormalName());
         customViewHolder.tvFormalName.setText(vaccineData.getFormalName());
     }
 

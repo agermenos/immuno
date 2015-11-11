@@ -26,11 +26,17 @@ import com.udacity.immuno.pojos.PojoHelper;
 import com.udacity.immuno.pojos.Vaccine;
 import com.udacity.immuno.pojos.Vaccines;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -40,6 +46,7 @@ import java.util.List;
  * to handle interaction events.
  */
 public class SearchFragment extends Fragment {
+
     private OnFragmentInteractionListener mListener;
     private List<VaccineData> finalDataList;
 
@@ -66,7 +73,7 @@ public class SearchFragment extends Fragment {
         return rootView;
     }
 
-    public class AsyncHttpTask extends AsyncTask<String, Void, Integer> implements CustomViewHolder.CustomViewItemClickListener {
+    public class AsyncHttpTask extends AsyncTask<String, Void, Integer> implements CustomViewHolder.CustomViewItemClickListener{
 
         @Override
         protected void onPreExecute() {
@@ -104,6 +111,28 @@ public class SearchFragment extends Fragment {
             } catch (Exception e) {
                 Log.d(TAG, e.getLocalizedMessage());
             }
+
+            try {
+                URL url = new URL("http://immuno-1125.appspot.com/country/" + params[0]);
+                urlConnection = (HttpURLConnection) url.openConnection();
+                int statusCode = urlConnection.getResponseCode();
+
+                // 200 represents HTTP OK
+                if (statusCode == 200 && result==1) { //if previous call was successful
+                    BufferedReader r = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+                    StringBuilder response = new StringBuilder();
+                    String line;
+                    while ((line = r.readLine()) != null) {
+                        response.append(line);
+                    }
+                    parseCountryResult(response.toString());
+                    result = 1; // Successful
+                } else {
+                    result = 0; //"Failed to fetch data!";
+                }
+            } catch (Exception e) {
+                Log.d(TAG, e.getLocalizedMessage());
+            }
             return result; //"Failed to fetch data!";
         }
 
@@ -113,7 +142,7 @@ public class SearchFragment extends Fragment {
             progressBar.setVisibility(View.GONE);
 
             if (result == 1) {
-                adapter = new RecycleViewAdapter(getContext(), finalDataList, this);
+                adapter = new RecycleViewAdapter(getContext(), dedupeList(finalDataList), this);
                 mRecyclerView.setAdapter(adapter);
             } else {
                 Toast.makeText(getActivity(), "Failed to fetch data!", Toast.LENGTH_SHORT).show();
@@ -131,26 +160,24 @@ public class SearchFragment extends Fragment {
         }
     }
 
-    public void onSearch(String searchText) {
+    private List<VaccineData> dedupeList(List<VaccineData> finalDataList) {
+        HashMap<String, VaccineData> returnhHash=new HashMap<>();
+        for (VaccineData vd:finalDataList){
+            returnhHash.put(vd.getCasualName(), vd);
+        }
+        return new ArrayList<>(returnhHash.values());
+    }
+
+    public void onSearch(String searchText){
         finalDataList = new ArrayList<>();
-        VaccineData header = new VaccineData();
         progressBar.setVisibility(View.VISIBLE);
-        // TODO Add header
-        header.setStatus(1000);
-        header.setCasualName(getString(R.string.most_relevant));
-        finalDataList.addAll(DBHelper.searchVaccinesByName(searchText));
-        // TODO Add header
-        VaccineData header2 = new VaccineData();
-        header2.setStatus(1000);
-        header2.setCasualName(getString(R.string.travel_results));
         new AsyncHttpTask().execute(searchText);
-        // new AsyncHttpTask().execute();
+       // new AsyncHttpTask().execute();
     }
 
     private void parseResult(String result) {
         List<VaccineData> vaccineDataList = new ArrayList<>();
         Vaccines vaccines = new Gson().fromJson(result, Vaccines.class);
-
         for (Vaccine vaccine : vaccines.getVaccines()) {
             try {
                 VaccineData vaccineData = PojoHelper.convert(vaccine);
@@ -160,6 +187,35 @@ public class SearchFragment extends Fragment {
             }
         }
         finalDataList.addAll(vaccineDataList);
+    }
+
+    private void parseCountryResult(String result) {
+        List<VaccineData> countryDataList = new ArrayList<>();
+        try {
+            JSONObject response = new JSONObject(result);
+            JSONArray countries = response.optJSONArray("countries");
+
+            for (int i = 0; i < countries.length() || i<=20; i++) {
+                try {
+                    JSONObject country = countries.optJSONObject(i);
+                    VaccineData item = new VaccineData();
+                    // load item
+                    item.setScheduleDate(new Date());
+                    item.setUserId(2000);
+                    item.setVaccineApiId(country.getString("country_name"));
+                    item.setCasualName(country.getString("country_name"));
+                    item.setFormalName(country.optJSONArray("Some travelers").length() + " " + getString(R.string.required_vaccines));
+                    item.setLink(country.getString("img_url"));
+                    countryDataList.add(item);
+                }
+                catch (Exception e) {
+                    Log.e(TAG, e.getMessage());
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        finalDataList.addAll(countryDataList);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -180,7 +236,7 @@ public class SearchFragment extends Fragment {
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
      * activity.
-     * <p/>
+     * <p>
      * See the Android Training lesson <a href=
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
