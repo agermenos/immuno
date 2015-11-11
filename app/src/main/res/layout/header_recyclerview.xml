@@ -2,9 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="10dp" android:paddingBottom="10dp"
+    android:paddingTop="6dp" android:paddingBottom="6dp"
     android:paddingLeft="12dp" android:paddingRight="12dp"
-    android:background="@color/immuno_light_grey">
+    android:background="@color/immuno_light_pink">
 
     <TextView android:id="@+id/header_title"
         android:layout_height="wrap_content"

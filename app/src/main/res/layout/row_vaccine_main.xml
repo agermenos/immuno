@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/layout_container"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/vaccine_small_row_height"
+        android:padding="@dimen/vaccine_small_row_padding">
+
+        <RelativeLayout
+            android:id="@+id/primary_icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/vaccine_icon"
+                android:layout_width="@dimen/vaccine_small_primary_icon_height"
+                android:layout_height="@dimen/vaccine_small_primary_icon_height"
+                android:src="@drawable/ic_vaccine_regular"
+                android:layout_centerInParent="true"/>
+        </RelativeLayout>
+
+        <!--<RelativeLayout-->
+            <!--android:id="@+id/primary_icon"-->
+            <!--android:layout_width="40dp"-->
+            <!--android:layout_height="40dp"-->
+            <!--android:layout_alignParentLeft="true"-->
+            <!--android:layout_centerVertical="true">-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/ic_vaccine_icon_past"-->
+                <!--android:text="jan\n2016"-->
+                <!--style="@style/VaccineIconPastTextView" />-->
+
+            <!--<de.hdodenhof.circleimageview.CircleImageView-->
+                <!--android:visibility="gone"-->
+                <!--android:id="@+id/vaccine_icon"-->
+                <!--android:layout_width="@dimen/vaccine_small_primary_icon_height"-->
+                <!--android:layout_height="@dimen/vaccine_small_primary_icon_height"-->
+                <!--android:src="@drawable/ic_vaccine_travel"-->
+                <!--android:layout_centerInParent="true"/>-->
+        <!--</RelativeLayout>-->
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:orientation="vertical"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/primary_icon">
+
+            <TextView android:id="@+id/vaccine_name"
+                android:text="Vaccine Name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/VaccineSubtitleStyle" />
+
+            <TextView android:id="@+id/vaccine_formal_name"
+                android:text="Vaccine Medical Name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/VaccineSubtitleStyle" />
+
+        </LinearLayout>
+    </RelativeLayout>
+
+    <include layout="@layout/divider_horizonal_full"/>
+
+</RelativeLayout>

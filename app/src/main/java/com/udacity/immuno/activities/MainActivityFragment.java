@@ -64,7 +64,7 @@ public class MainActivityFragment extends Fragment {
 
         //TODO: create adapter
         mAdapter  = new MainActivityAdapter(getActivity(), vaccineDataList);
-//        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setAdapter(mAdapter);
 
         mRecyclerView.setDescendantFocusability(ViewGroup.FOCUS_AFTER_DESCENDANTS); //for accessibility
     }

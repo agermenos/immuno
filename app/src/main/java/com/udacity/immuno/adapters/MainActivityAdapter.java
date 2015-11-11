@@ -7,13 +7,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.ToggleButton;
 
 import com.udacity.immuno.R;
 import com.udacity.immuno.database.DBHelper;
 import com.udacity.immuno.database.VaccineData;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.Bind;
@@ -35,7 +36,9 @@ public class MainActivityAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private static final int TYPE_HEADER_UPCOMING = 1;
     private static final int TYPE_HEADER_PAST_VACCINES = 2;
     private static final int TYPE_BUTTON_MORE = 3;
-    private static final int TYPE_VACCINE = 4;
+    private static final int TYPE_VACCINE_ATTENTION = 4;
+    private static final int TYPE_VACCINE_UPCOMING = 5;
+    private static final int TYPE_VACCINE_PAST = 6;
 
     public MainActivityAdapter(Context context, List<VaccineData> vaccineDataList) {
         this.vaccineDataList = vaccineDataList;
@@ -66,13 +69,37 @@ public class MainActivityAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public void setViews(){
 
         views = new ArrayList<>();
-        views.add(TYPE_HEADER_NEEDS_ATTENTION);
 
-        //TODO: check if there are need attention items
-            //if yes: views.add(TYPE_HEADER_NEEDS_ATTENTION);
-        //TODO: for every vaccine that needs attention:
-            //views.add(TYPE_VACCINE);
-        //TODO: rinse repeat
+
+        if(needsAttentionVaccines != null && needsAttentionVaccines.size() > 0){
+            views.add(TYPE_HEADER_NEEDS_ATTENTION);
+
+            int size = needsAttentionVaccines.size();
+
+            for(int i = 0; i < size; i++){
+                views.add(TYPE_VACCINE_ATTENTION);
+            }
+        }
+
+        if(upcomingVaccines != null && upcomingVaccines.size() > 0){
+            views.add(TYPE_HEADER_UPCOMING);
+
+            int size = upcomingVaccines.size();
+
+            for(int i = 0; i < size; i++){
+                views.add(TYPE_VACCINE_UPCOMING);
+            }
+        }
+
+        if(pastVaccines != null && pastVaccines.size() > 0){
+            views.add(TYPE_HEADER_PAST_VACCINES);
+
+            int size = pastVaccines.size();
+
+            for(int i = 0; i < size; i++){
+                views.add(TYPE_VACCINE_PAST);
+            }
+        }
 
         views.add(TYPE_BUTTON_MORE); //add at the end of the list
 
@@ -90,8 +117,7 @@ public class MainActivityAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public static class VaccineViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.vaccine_icon) ImageView vaccineIcon;
         @Bind(R.id.vaccine_name) TextView vaccineName;
-        @Bind(R.id.vaccine_formal_name) TextView vaccineFormalName;
-        @Bind(R.id.vaccine_action)ToggleButton vaccineAction;
+        @Bind(R.id.vaccine_formal_name) TextView vaccineStatusLabel;
 
         public VaccineViewHolder(View v) {
             super(v);
@@ -121,9 +147,17 @@ public class MainActivityAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 View buttonMoreView = mInflater.inflate(R.layout.row_more_button, parent, false);
                 return new MoreButtonViewHolder(buttonMoreView);
 
-            case TYPE_VACCINE:
-                View vaccineView = mInflater.inflate(R.layout.row_vacine_small, parent, false);
-                return new VaccineViewHolder(vaccineView);
+            case TYPE_VACCINE_ATTENTION:
+                View vaccineAttentionView = mInflater.inflate(R.layout.row_vaccine_main, parent, false);
+                return new VaccineViewHolder(vaccineAttentionView);
+
+            case TYPE_VACCINE_UPCOMING:
+                View vaccineUpcomingView = mInflater.inflate(R.layout.row_vaccine_main, parent, false);
+                return new VaccineViewHolder(vaccineUpcomingView);
+
+            case TYPE_VACCINE_PAST:
+                View vaccinePastView = mInflater.inflate(R.layout.row_vaccine_main, parent, false);
+                return new VaccineViewHolder(vaccinePastView);
         }
 
         return null;
@@ -135,31 +169,67 @@ public class MainActivityAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         switch (holder.getItemViewType()) {
 
             case TYPE_HEADER_NEEDS_ATTENTION:
-                final HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
-                headerViewHolder.headerTitle.setText("");
-
-
+                final HeaderViewHolder needsAttentionView = (HeaderViewHolder) holder;
+                needsAttentionView.headerTitle.setText("Needs Attention");
                 break;
 
             case TYPE_HEADER_UPCOMING:
-
+                final HeaderViewHolder upcomingView = (HeaderViewHolder) holder;
+                upcomingView.headerTitle.setText("Upcoming");
                 break;
 
             case TYPE_HEADER_PAST_VACCINES:
-
+                final HeaderViewHolder pastVaccinesView = (HeaderViewHolder) holder;
+                pastVaccinesView.headerTitle.setText("Past Vaccines");
                 break;
 
-            case TYPE_VACCINE:
-                final VaccineViewHolder vaccineView = (VaccineViewHolder) holder;
+            case TYPE_VACCINE_ATTENTION:
+                final VaccineViewHolder vaccineAttentionView = (VaccineViewHolder) holder;
 
                 //TODO: set data for this vaccine
-                //Vaccine vaccine = vaccineDataList.get(position - 1); //account for header view
-                vaccineView.vaccineName.setText("");
-                vaccineView.vaccineFormalName.setText("");
+                VaccineData vaccineAttention = needsAttentionVaccines.get(position - 1); //account for header view
+                vaccineAttentionView.vaccineName.setText(vaccineAttention.getCasualName());
 
-                //TODO: set icon and set action
+                Date date = vaccineAttention.getScheduleDate();
+                SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy");
+                String dateString = sdf.format(date);
+
+                vaccineAttentionView.vaccineStatusLabel.setText("Needs Update");
+
                 break;
 
+            case TYPE_VACCINE_UPCOMING:
+                final VaccineViewHolder vaccineUpcomingView = (VaccineViewHolder) holder;
+
+                position = position - needsAttentionVaccines.size();
+
+                //TODO: set data for this vaccine
+                VaccineData vaccineUpcoming = upcomingVaccines.get(position - 2); //account for header view
+                vaccineUpcomingView.vaccineName.setText(vaccineUpcoming.getCasualName());
+
+                Date upcomingDate = vaccineUpcoming.getScheduleDate();
+                SimpleDateFormat upcomingSdf = new SimpleDateFormat("MMM dd, yyyy");
+                String upcomingDateString = upcomingSdf.format(upcomingDate);
+
+                vaccineUpcomingView.vaccineStatusLabel.setText("Schedule for " + upcomingDateString);
+
+                break;
+
+            case TYPE_VACCINE_PAST:
+                final VaccineViewHolder vaccinePastView = (VaccineViewHolder) holder;
+
+                position = position - (needsAttentionVaccines.size() + upcomingVaccines.size());
+
+                //TODO: set data for this vaccine
+                VaccineData vaccinePast = pastVaccines.get(position - 3); //account for header view
+                vaccinePastView.vaccineName.setText(vaccinePast.getCasualName());
+
+                Date pastDate = vaccinePast.getScheduleDate();
+                SimpleDateFormat pastSdf = new SimpleDateFormat("MMM dd, yyyy");
+                String pastDateString = pastSdf.format(pastDate);
+                vaccinePastView.vaccineStatusLabel.setText("Recevied " + pastDateString);
+
+                break;
         }
     }
 
