@@ -70,6 +70,9 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<CustomViewHolder> {
                         break;
                     case DBHelper.STATUS_TO_BE_SCHEDULED:
                         customViewHolder.ibVaccineAction.setImageResource(R.drawable.ic_protected_yellow_24dp);
+                        break;
+                    default:
+                        customViewHolder.ibVaccineAction.setImageResource(R.drawable.ic_protected_red_24dp);
                 }
             }
         }

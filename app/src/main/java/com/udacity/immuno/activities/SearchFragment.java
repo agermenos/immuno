@@ -205,6 +205,7 @@ public class SearchFragment extends Fragment {
                     item.setVaccineApiId(country.getString("country_name"));
                     item.setCasualName(country.getString("country_name"));
                     item.setFormalName(country.optJSONArray("Some travelers").length() + " " + getString(R.string.required_vaccines));
+                    item.setLink(country.getString("img_url"));
                     countryDataList.add(item);
                 }
                 catch (Exception e) {

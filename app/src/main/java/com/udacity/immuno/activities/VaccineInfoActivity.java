@@ -6,12 +6,16 @@ import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.udacity.immuno.R;
 import com.udacity.immuno.database.DBHelper;
 import com.udacity.immuno.database.VaccineData;
+import com.udacity.immuno.Utility;
+import com.udacity.immuno.utils.CircleTransform;
 
 public class VaccineInfoActivity extends AppCompatActivity {
 
@@ -45,7 +49,14 @@ public class VaccineInfoActivity extends AppCompatActivity {
         collapsingToolbar.setTitle(vaccineData.getCasualName());
 
         TextView vaccineDesc = (TextView) findViewById(R.id.vaccine_description);
+        ImageView picture = (ImageView) findViewById(R.id.image);
         vaccineDesc.setText(vaccineData.getDescription());
+        if (vaccineData.getUserId()!=2000) {
+            Picasso.with(this).load(Utility.randMicrobe()).transform(new CircleTransform()).into(picture);
+        }
+        else {
+            Picasso.with(this).load(vaccineData.getLink()).transform(new CircleTransform()).into(picture);
+        }
 
     }
 
